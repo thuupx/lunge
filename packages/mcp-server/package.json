@@ -1,0 +1,31 @@
+{
+  "name": "volley",
+  "version": "0.0.0",
+  "description": "MCP server for AI-agent-driven API testing (REST/GraphQL/WS/SSE/gRPC)",
+  "type": "module",
+  "bin": {
+    "volley": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@volley/core": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "yaml": "^2.6.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/ws": "^8.5.13",
+    "tsx": "^4.19.2",
+    "typescript": "^7.0.2",
+    "ws": "^8.18.0"
+  }
+}

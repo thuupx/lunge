@@ -1,0 +1,23 @@
+{
+  "name": "@volley/core",
+  "version": "0.0.0",
+  "description": "Rust core engine (native addon) for volley",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "napi": {
+    "binaryName": "volley-core"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "*.node"
+  ],
+  "scripts": {
+    "build": "napi build --platform --release",
+    "build:debug": "napi build --platform",
+    "test": "cargo test"
+  },
+  "devDependencies": {
+    "@napi-rs/cli": "^3.7.3"
+  }
+}

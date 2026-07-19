@@ -1,0 +1,5 @@
+packages:
+  - "crates/*"
+  - "packages/*"
+allowBuilds:
+  esbuild: true

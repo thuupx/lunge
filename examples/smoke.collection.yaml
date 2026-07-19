@@ -1,0 +1,39 @@
+version: 1
+name: Smoke flow (login -> profile)
+description: Logs in, extracts the token, then calls a protected endpoint with it.
+
+vars:
+  baseUrl: "{{env.baseUrl}}"
+
+defaults:
+  timeoutMs: 10000
+  headers:
+    Accept: application/json
+
+steps:
+  - id: login
+    type: http
+    request:
+      method: POST
+      url: "{{baseUrl}}/login"
+      body:
+        user: admin
+    assert:
+      - status: 200
+      - jsonpath: "$.token"
+        exists: true
+    extract:
+      token: "$.token"
+
+  - id: profile
+    type: http
+    request:
+      method: GET
+      url: "{{baseUrl}}/me"
+      auth:
+        type: bearer
+        token: "{{token}}"
+    assert:
+      - status: 200
+      - jsonpath: "$.username"
+        equals: admin
