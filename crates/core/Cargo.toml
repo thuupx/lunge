@@ -1,6 +1,6 @@
 [package]
 name = "volley-core"
-version = "1.0.2"
+version = "1.0.3"
 edition = "2021"
 license = "MIT"
 description = "Rust core engine for volley (execution, protocols, assertions, token optimizer)"
