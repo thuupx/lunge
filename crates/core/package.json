@@ -1,6 +1,6 @@
 {
   "name": "@thupham/volley-core",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Rust core engine (native addon) for volley",
   "main": "index.js",
   "types": "index.d.ts",
@@ -25,19 +25,26 @@
   },
   "files": [
     "index.js",
-    "index.d.ts",
-    "*.node"
+    "index.d.ts"
   ],
   "scripts": {
     "build": "napi build --platform --release",
     "build:debug": "napi build --platform",
-    "test": "cargo test",
-    "prepublishOnly": "napi prepublish -t npm"
+    "test": "cargo test"
   },
   "devDependencies": {
     "@napi-rs/cli": "^3.7.3"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "optionalDependencies": {
+    "@thupham/volley-core-darwin-arm64": "1.0.6",
+    "@thupham/volley-core-darwin-x64": "1.0.6",
+    "@thupham/volley-core-linux-x64-gnu": "1.0.6",
+    "@thupham/volley-core-linux-x64-musl": "1.0.6",
+    "@thupham/volley-core-linux-arm64-gnu": "1.0.6",
+    "@thupham/volley-core-win32-x64-msvc": "1.0.6",
+    "@thupham/volley-core-win32-arm64-msvc": "1.0.6"
   }
 }

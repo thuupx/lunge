@@ -1,0 +1,27 @@
+{
+  "name": "@thupham/volley-core-linux-x64-musl",
+  "version": "1.0.6",
+  "cpu": [
+    "x64"
+  ],
+  "main": "volley-core.linux-x64-musl.node",
+  "files": [
+    "volley-core.linux-x64-musl.node"
+  ],
+  "description": "Rust core engine (native addon) for volley",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thuupx/volley.git",
+    "directory": "crates/core"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "os": [
+    "linux"
+  ],
+  "libc": [
+    "musl"
+  ]
+}

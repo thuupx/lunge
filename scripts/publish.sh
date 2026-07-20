@@ -141,20 +141,51 @@ if $DO_CORE; then
     [ -f crates/core/index.js ] || die "crates/core/index.js missing. Run without --no-build first."
   fi
 
+  # napi prepublish expects .node files in npm/<platform>/ subdirectories.
+  # create-npm-dirs scaffolds them, then artifacts copies the .node files in.
+  log "Creating per-platform npm package dirs..."
+  ( cd crates/core && pnpm exec napi create-npm-dirs ) \
+    || die "napi create-npm-dirs failed"
+  log "Copying .node artifacts into npm/<platform>/ layout..."
+  # -d . tells napi artifacts to scan the current dir for .node files
+  # (build output is in crates/core/*.node, not in an artifacts/ subdirectory)
+  ( cd crates/core && pnpm exec napi artifacts -d . ) \
+    || die "napi artifacts failed"
+
   log "Publishing @thupham/volley-core + platform package via napi prepublish..."
   if $DRY_RUN; then
     # napi prepublish doesn't have a --dry-run flag; show what it would do.
     warn "Dry run: skipping actual napi prepublish"
-    printf '  %s→%s pnpm exec napi prepublish -t npm (in crates/core/)\n' "$C_DIM" "$C_RESET" >&2
+    printf '  %s→%s pnpm exec napi prepublish -t npm --no-gh-release (in crates/core/)\n' "$C_DIM" "$C_RESET" >&2
   else
     NAPI_PUBLISH_FLAGS=("-t" "npm" "--no-gh-release")
+    # napi prepublish spawns `npm publish` as a child process. It doesn't
+    # pass --otp through, so we set NPM_CONFIG_OTP which npm reads automatically.
     if [ -n "$OTP" ]; then
-      NAPI_PUBLISH_FLAGS+=("--otp" "$OTP")
+      export NPM_CONFIG_OTP="$OTP"
     fi
     (
       cd crates/core
       pnpm exec napi prepublish "${NAPI_PUBLISH_FLAGS[@]}"
     ) || die "napi prepublish failed for @thupham/volley-core"
+    ok "Published platform packages for @thupham/volley-core@$CORE_VERSION"
+
+    # napi prepublish only publishes per-platform packages. The main
+    # @thupham/volley-core package (with index.js loader + optionalDependencies)
+    # must be published separately.
+    log "Publishing main @thupham/volley-core package..."
+    NPM_PUBLISH_ARGS=("publish" "--access" "$ACCESS")
+    if $DRY_RUN; then
+      NPM_PUBLISH_ARGS+=("--dry-run")
+    fi
+    if [ -n "$OTP" ]; then
+      NPM_PUBLISH_ARGS+=("--otp" "$OTP")
+    fi
+    (
+      cd crates/core
+      npm "${NPM_PUBLISH_ARGS[@]}"
+    ) || die "npm publish failed for main @thupham/volley-core"
+    ok "Published @thupham/volley-core@$CORE_VERSION"
     ok "Published @thupham/volley-core@$CORE_VERSION"
   fi
   printf '\n' >&2

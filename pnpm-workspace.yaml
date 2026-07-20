@@ -6,3 +6,5 @@ allowBuilds:
   esbuild: true
   sharp: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - '@thupham/volley-core-darwin-arm64@1.0.4 || 1.0.5'

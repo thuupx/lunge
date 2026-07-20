@@ -101,6 +101,10 @@ jobs:
           retention-days: 7
 
   # ── Publish @thupham/volley-core + platform packages ──────────────────────────────
+  # Uses npm Trusted Publisher (OIDC) — no NPM_TOKEN secret needed.
+  # The package must be configured as a trusted publisher on npm:
+  #   repo: thuupx/volley, workflow: release.yml, environment: (none)
+  # Requires `permissions: id-token: write` (set at workflow level).
   publish-core:
     needs: build-native
     runs-on: ubuntu-22.04
@@ -140,12 +144,23 @@ jobs:
       - name: Verify npm/ layout
         run: find crates/core/npm -name '*.node' -type f
 
-      - name: Publish @thupham/volley-core + platform packages
+      - name: Publish @thupham/volley-core platform packages
         working-directory: crates/core
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # napi prepublish spawns `npm publish` as a child process.
+          # These env vars are inherited by the child so every per-platform
+          # package gets --access public + provenance (OIDC auto-detected).
+          NPM_CONFIG_ACCESS: public
+          NPM_CONFIG_PROVENANCE: true
         run: pnpm exec napi prepublish -t npm --no-gh-release
+
+      - name: Publish @thupham/volley-core main package
+        working-directory: crates/core
+        env:
+          NPM_CONFIG_ACCESS: public
+          NPM_CONFIG_PROVENANCE: true
+        run: npm publish --access public
 
   # ── Publish @thupham/volley-mcp (the MCP server) ──────────────────────────────────
   publish-mcp:
@@ -172,5 +187,6 @@ jobs:
       - name: Publish @thupham/volley-mcp
         working-directory: packages/mcp-server
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm publish --access public --no-git-checks
+          NPM_CONFIG_ACCESS: public
+          NPM_CONFIG_PROVENANCE: true
+        run: npm publish --access public

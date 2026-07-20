@@ -1,0 +1,24 @@
+{
+  "name": "@thupham/volley-core-win32-x64-msvc",
+  "version": "1.0.6",
+  "cpu": [
+    "x64"
+  ],
+  "main": "volley-core.win32-x64-msvc.node",
+  "files": [
+    "volley-core.win32-x64-msvc.node"
+  ],
+  "description": "Rust core engine (native addon) for volley",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thuupx/volley.git",
+    "directory": "crates/core"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "os": [
+    "win32"
+  ]
+}
