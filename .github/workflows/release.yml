@@ -133,6 +133,7 @@ jobs:
         working-directory: crates/core
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm exec napi prepublish -t npm
 
   # ── Publish @thupham/volley-mcp (the MCP server) ──────────────────────────────────

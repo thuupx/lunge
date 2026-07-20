@@ -33,6 +33,11 @@
     "node": ">=18"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thuupx/volley.git",
+    "directory": "packages/mcp-server"
+  },
   "publishConfig": {
     "access": "public"
   }

@@ -5,6 +5,11 @@
   "main": "index.js",
   "types": "index.d.ts",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thuupx/volley.git",
+    "directory": "crates/core"
+  },
   "napi": {
     "binaryName": "volley-core",
     "packageName": "@thupham/volley-core",
