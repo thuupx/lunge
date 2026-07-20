@@ -35,15 +35,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "optionalDependencies": {
-    "@thupham/volley-core-darwin-arm64": "1.0.2",
-    "@thupham/volley-core-darwin-x64": "1.0.2",
-    "@thupham/volley-core-linux-x64-gnu": "1.0.2",
-    "@thupham/volley-core-linux-x64-musl": "1.0.2",
-    "@thupham/volley-core-linux-arm64-gnu": "1.0.2",
-    "@thupham/volley-core-linux-arm64-musl": "1.0.2",
-    "@thupham/volley-core-win32-x64-msvc": "1.0.2",
-    "@thupham/volley-core-win32-arm64-msvc": "1.0.2"
   }
 }
