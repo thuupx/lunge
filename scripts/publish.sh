@@ -147,7 +147,7 @@ if $DO_CORE; then
     warn "Dry run: skipping actual napi prepublish"
     printf '  %s→%s pnpm exec napi prepublish -t npm (in crates/core/)\n' "$C_DIM" "$C_RESET" >&2
   else
-    NAPI_PUBLISH_FLAGS=("-t" "npm")
+    NAPI_PUBLISH_FLAGS=("-t" "npm" "--no-gh-release")
     if [ -n "$OTP" ]; then
       NAPI_PUBLISH_FLAGS+=("--otp" "$OTP")
     fi

@@ -1,6 +1,6 @@
 {
   "name": "volley",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": false,
   "description": "MCP server that lets AI agents perform API testing (REST/GraphQL/WS/SSE/gRPC)",
   "scripts": {
