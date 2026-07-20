@@ -45,10 +45,6 @@ jobs:
             os: ubuntu-22.04
             name: linux-arm64-gnu
             linux_arm_cross: true
-          - target: aarch64-unknown-linux-musl
-            os: ubuntu-22.04
-            name: linux-arm64-musl
-            use_zig: true
           - target: x86_64-pc-windows-msvc
             os: windows-latest
             name: win32-x64-msvc
@@ -86,12 +82,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gcc-aarch64-linux-gnu
 
-      - name: Setup zig (for aarch64 musl cross-compilation)
-        if: matrix.use_zig
-        uses: goto-bus-stop/setup-zig@v2
-        with:
-          version: 0.13.0
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -100,10 +90,6 @@ jobs:
         env:
           # aarch64 GNU: use the cross gcc as linker
           CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: ${{ matrix.linux_arm_cross && 'aarch64-linux-gnu-gcc' || '' }}
-          # aarch64 musl: use zig as C compiler + linker (no apt package exists)
-          CC_aarch64_unknown_linux_musl: ${{ matrix.use_zig && 'zig cc -target aarch64-linux-musl' || '' }}
-          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_MUSL_LINKER: ${{ matrix.use_zig && 'zig cc -target aarch64-linux-musl' || '' }}
-          AR_aarch64_unknown_linux_musl: ${{ matrix.use_zig && 'zig ar' || '' }}
         run: pnpm exec napi build --platform --release --target ${{ matrix.target }}
 
       - name: Upload .node artifact
