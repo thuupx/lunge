@@ -16,7 +16,7 @@ import { registerPolicyTool } from "./tools/policy.js";
 import { registerImporterTools } from "./tools/importers.js";
 
 async function main(): Promise<void> {
-  const server = new McpServer({ name: "volley", version: "1.0.1" });
+  const server = new McpServer({ name: "volley", version: "1.0.2" });
   const session = new Session();
 
   registerRequestTools(server, session);
