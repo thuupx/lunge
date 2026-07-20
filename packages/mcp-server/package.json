@@ -1,6 +1,6 @@
 {
   "name": "volley",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "MCP server for AI-agent-driven API testing (REST/GraphQL/WS/SSE/gRPC)",
   "type": "module",
   "bin": {
