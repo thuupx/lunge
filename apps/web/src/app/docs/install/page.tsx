@@ -1,3 +1,5 @@
+import { CodeBlock } from "@/components/code-block";
+
 export const metadata = {
   title: "Install - Volley",
 };
@@ -20,12 +22,13 @@ export default function DocsInstallPage() {
 
       <h2>1. Build the server</h2>
       <p>Clone the repo and build the Rust core plus the TypeScript MCP layer:</p>
-      <pre>
-        <code>{`git clone <repo>
+      <CodeBlock
+        language="bash"
+        code={`git clone <repo>
 cd volley
 pnpm install
-pnpm build   # builds the Rust core, then the TS server`}</code>
-      </pre>
+pnpm build   # builds the Rust core, then the TS server`}
+      />
       <p>
         The build produces <code>packages/mcp-server/dist/index.js</code> - the stdio
         entry point your MCP client will launch.
@@ -43,16 +46,17 @@ pnpm build   # builds the Rust core, then the TS server`}</code>
         <li><strong>Devin CLI</strong> - <code>~/.config/devin/config.json</code></li>
       </ul>
 
-      <pre>
-        <code>{`{
+      <CodeBlock
+        language="json"
+        code={`{
   "mcpServers": {
     "volley": {
       "command": "node",
       "args": ["/absolute/path/to/volley/packages/mcp-server/dist/index.js"]
     }
   }
-}`}</code>
-      </pre>
+}`}
+      />
 
       <h2>3. Verify the connection</h2>
       <p>
@@ -69,10 +73,11 @@ pnpm build   # builds the Rust core, then the TS server`}</code>
 
       <h2>End-to-end verification</h2>
       <p>To confirm the full pipeline locally without an MCP client, run the bundled e2e script:</p>
-      <pre>
-        <code>{`pnpm build
-pnpm e2e   # spins up a local test server and drives every tool over stdio`}</code>
-      </pre>
+      <CodeBlock
+        language="bash"
+        code={`pnpm build
+pnpm e2e   # spins up a local test server and drives every tool over stdio`}
+      />
       <p>
         The script runs 31 checks covering every shipped tool. If it passes, your build is
         ready to register with any MCP client.

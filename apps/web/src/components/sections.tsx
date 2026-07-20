@@ -1,6 +1,7 @@
 import { pillars, protocols, comparison } from "@/lib/content";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CodeBlock } from "@/components/code-block";
 import { Check, CircleDot } from "lucide-react";
 
 export function Pillars() {
@@ -59,8 +60,10 @@ export function DeclarativeTesting() {
               </div>
             </CardHeader>
             <CardContent>
-              <pre className="overflow-x-auto rounded-md border border-border/60 bg-background/60 p-3 font-mono text-[11px] leading-relaxed text-muted-foreground">
-{`pm.test("login ok", () => {
+              <CodeBlock
+                language="javascript"
+                className="overflow-x-auto rounded-md border border-border/60 bg-background/60 p-3 font-mono text-[11px] leading-relaxed text-muted-foreground"
+                code={`pm.test("login ok", () => {
   pm.expect(res.code).to.equal(200);
   pm.expect(res.json().token)
     .to.be.a("string");
@@ -69,7 +72,7 @@ export function DeclarativeTesting() {
 });
 pm.variables.set("token",
   res.json().token);`}
-              </pre>
+              />
               <p className="mt-3 text-xs text-muted-foreground">
                 Agent must generate valid JS, the runner evaluates it, and output is
                 human-readable prose — expensive on the context window.
@@ -91,14 +94,16 @@ pm.variables.set("token",
               </div>
             </CardHeader>
             <CardContent>
-              <pre className="overflow-x-auto rounded-md border border-border/60 bg-background/60 p-3 font-mono text-[11px] leading-relaxed text-foreground/90">
-{`"assert": [
+              <CodeBlock
+                language="json"
+                className="overflow-x-auto rounded-md border border-border/60 bg-background/60 p-3 font-mono text-[11px] leading-relaxed text-foreground/90"
+                code={`"assert": [
   { "status": 200 },
   { "jsonpath": "$.token", "exists": true },
   { "timeMs": { "lt": 500 } }
 ],
 "extract": { "token": "$.token" }`}
-              </pre>
+              />
               <p className="mt-3 text-xs text-muted-foreground">
                 Agent emits structured JSON. The Rust core evaluates it and returns a
                 compact pass/fail summary. Same assertion power, a fraction of the tokens.

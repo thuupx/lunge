@@ -1,3 +1,5 @@
+import { CodeBlock } from "@/components/code-block";
+
 export const metadata = {
   title: "Collections - Volley",
 };
@@ -25,8 +27,9 @@ export default function DocsCollectionsPage() {
         optional assertions, and optional extractions. The runner threads extracted values
         into the next step&apos;s inputs.
       </p>
-      <pre>
-        <code>{`# collections/login-flow.yaml
+      <CodeBlock
+        language="yaml"
+        code={`# collections/login-flow.yaml
 name: Login flow
 steps:
   - name: login
@@ -50,29 +53,31 @@ steps:
       url: "{{baseUrl}}/invoices"
       auth: { type: bearer, token: "{{token}}" }
       query: { limit: 10 }
-    extract: { firstInvoiceId: "$.items[0].id" }`}</code>
-      </pre>
+    extract: { firstInvoiceId: "$.items[0].id" }`}
+      />
 
       <h2>Running a collection</h2>
-      <pre>
-        <code>{`{
+      <CodeBlock
+        language="json"
+        code={`{
   "tool": "run_collection",
   "input": {
     "path": "collections/login-flow.yaml",
     "env": "dev",
     "tags": ["smoke"]
   }
-}`}</code>
-      </pre>
+}`}
+      />
       <p>
         Output is a per-step summary: status, assertions, extracted vars, and handles -
         same token-efficient shape as individual tool calls.
       </p>
 
       <h2>Listing collections</h2>
-      <pre>
-        <code>{`{ "tool": "list_collections", "input": {} }`}</code>
-      </pre>
+      <CodeBlock
+        language="json"
+        code={`{ "tool": "list_collections", "input": {} }`}
+      />
 
       <h2>Filters</h2>
       <ul>

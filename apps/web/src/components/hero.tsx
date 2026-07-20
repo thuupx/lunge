@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Terminal } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
+import { CodeBlock } from "@/components/code-block";
 
 export function Hero() {
   return (
@@ -75,8 +76,10 @@ function CodePreview() {
             mcp · tools/call · http_request (assert + extract)
           </span>
         </div>
-        <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-foreground/90">
-{`{
+        <CodeBlock
+          language="json"
+          className="overflow-x-auto p-5 font-mono text-[13px] leading-relaxed text-foreground/90"
+          code={`{
   "tool": "http_request",
   "input": {
     "method": "POST",
@@ -98,7 +101,7 @@ function CodePreview() {
   "extracted": { "token": "***redacted***" },
   "responseHandle": "resp_a1b2"
 }`}
-        </pre>
+        />
       </div>
     </div>
   );

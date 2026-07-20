@@ -276,6 +276,10 @@
   padding: 0;
   color: var(--foreground);
 }
+.prose-volley pre code.hljs {
+  padding: 0;
+  background: transparent;
+}
 .prose-volley table {
   width: 100%;
   border-collapse: collapse;
@@ -307,4 +311,61 @@
   border: none;
   border-top: 1px solid var(--border);
   margin: 2rem 0;
+}
+
+/* ── highlight.js theme: Volley OLED (tuned to the green-accent palette) ──
+ * Token colors use the design system: primary green for keywords/strings,
+ * amber for numbers/attrs, sky for types/literals, muted for comments.
+ */
+.hljs {
+  color: var(--foreground);
+  background: transparent;
+}
+.hljs-comment,
+.hljs-quote {
+  color: oklch(0.6 0.012 250);
+  font-style: italic;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-built_in,
+.hljs-name,
+.hljs-tag {
+  color: oklch(0.72 0.18 145);
+}
+.hljs-string,
+.hljs-title,
+.hljs-section,
+.hljs-attribute,
+.hljs-literal,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-addition {
+  color: oklch(0.78 0.15 145);
+}
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link,
+.hljs-meta,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: oklch(0.78 0.14 75);
+}
+.hljs-attr,
+.hljs-variable,
+.hljs-property,
+.hljs-params {
+  color: oklch(0.82 0.04 240);
+}
+.hljs-regexp,
+.hljs-deletion {
+  color: oklch(0.7 0.18 25);
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: 600;
 }

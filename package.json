@@ -10,6 +10,10 @@
     "dev": "pnpm --filter volley dev",
     "test:core": "cargo test --manifest-path crates/core/Cargo.toml",
     "e2e": "node scripts/e2e.mjs",
+    "release": "bash scripts/release.sh",
+    "release:patch": "bash scripts/release.sh patch --tag",
+    "release:minor": "bash scripts/release.sh minor --tag",
+    "release:major": "bash scripts/release.sh major --tag",
     "dev:web": "pnpm --filter web dev",
     "build:web": "pnpm --filter web build",
     "lint:web": "pnpm --filter web lint"

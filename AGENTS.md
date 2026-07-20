@@ -52,6 +52,8 @@ Implemented tools: `http_request`, `graphql_request`, `graphql_introspect`, `ws_
 - End-to-end verification: `pnpm e2e` (requires `pnpm build` first; spins up a local
   test server and drives every tool over stdio)
 - Run the server (dev): `pnpm dev`
+- Bump release version: `pnpm release <patch|minor|major> [--tag] [--dry-run]` or
+  `pnpm release --version=X.Y.Z` (see `scripts/release.sh`)
 - Run the web app (dev): `pnpm dev:web` (Next.js 16 on http://localhost:3000)
 - Build the web app: `pnpm build:web`
 - Lint the web app: `pnpm lint:web`
