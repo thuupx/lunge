@@ -9,7 +9,7 @@
                                  │  MCP protocol (JSON-RPC over stdio)
                                  ▼
 ┌──────────────────────────────────────────────────────────────────┐
-│  MCP Layer  —  TypeScript (@modelcontextprotocol/sdk)              │
+│  MCP Layer  -  TypeScript (@modelcontextprotocol/sdk)              │
 │                                                                    │
 │  • Tool registration & JSON-schema validation (zod)               │
 │  • Session/state manager (envs, saved responses, ws/sse handles)   │
@@ -20,7 +20,7 @@
                                  │  ThreadsafeFunction for progress)
                                  ▼
 ┌──────────────────────────────────────────────────────────────────┐
-│  Core Engine  —  Rust (compiled to a native .node addon)           │
+│  Core Engine  -  Rust (compiled to a native .node addon)           │
 │                                                                    │
 │  ┌────────────┐ ┌────────────┐ ┌────────────┐ ┌────────────────┐  │
 │  │ HTTP/REST  │ │  GraphQL   │ │ WebSocket  │ │ SSE            │  │
@@ -43,12 +43,12 @@
 - **TypeScript for MCP**: the official MCP SDK, tool schema tooling (`zod`), and the
   broadest client compatibility live in the TS/Node ecosystem. Writing the protocol layer
   here is low-friction.
-- **Rust for the core**: request execution, protocol clients, assertions, templating and —
-  most importantly — **output summarization/compression** are CPU/IO heavy and benefit from
+- **Rust for the core**: request execution, protocol clients, assertions, templating and -
+  most importantly - **output summarization/compression** are CPU/IO heavy and benefit from
   Rust's performance and strong async story (`tokio`). This is where the "token-killer"
   value is produced, consistent with the RTK philosophy already in this repo.
 - **napi-rs** bridges them: the Rust crate compiles to a `.node` native addon that TS
-  `require`s directly — no subprocess, no serialization overhead beyond the FFI marshaling.
+  `require`s directly - no subprocess, no serialization overhead beyond the FFI marshaling.
 
 ## 3. Repository layout (monorepo)
 
@@ -84,7 +84,7 @@ volley/
 └── package.json             # workspace root (pnpm/npm workspaces)
 ```
 
-## 4. Streaming strategy (WebSocket & SSE) — the key design choice
+## 4. Streaming strategy (WebSocket & SSE) - the key design choice
 
 Streaming protocols do **not** map naturally to a single request/response tool call, and
 pushing every frame to the model is a token disaster. We solve both problems with the
@@ -122,7 +122,7 @@ To keep the boundary clean and versionable:
 State lives in the TS layer (single process, per MCP session):
 
 - **Environments/variables**: named sets of key/values (e.g. `dev`, `staging`) with secret
-  masking. Support chaining — extract a value from response A and feed it into request B.
+  masking. Support chaining - extract a value from response A and feed it into request B.
 - **Response handles**: every response over a size threshold is stored (by the Rust
   `store` module) and referenced by an id like `resp_a1b2`. The agent can later call
   `inspect_response` with a JSONPath to pull only the slice it needs.
@@ -132,15 +132,15 @@ State lives in the TS layer (single process, per MCP session):
 
 Implemented in Rust (`optimizer.rs`), applied to every response before it returns:
 
-1. **Structural summarization** — for large JSON, return a *shape/skeleton* (keys, types,
+1. **Structural summarization** - for large JSON, return a *shape/skeleton* (keys, types,
    array lengths, a few sample elements) instead of the full body.
-2. **Truncation with markers** — cap strings/arrays at configurable limits with
+2. **Truncation with markers** - cap strings/arrays at configurable limits with
    `…(+N more)` markers, preserving valid structure.
-3. **Header/noise pruning** — drop chatty headers (e.g. tracing, CDN) by default; keep an
+3. **Header/noise pruning** - drop chatty headers (e.g. tracing, CDN) by default; keep an
    allowlist (content-type, auth-relevant, rate-limit).
-4. **Diff-only mode** — when an expected value is provided, return only the assertion
+4. **Diff-only mode** - when an expected value is provided, return only the assertion
    result + a minimal diff, not the full body.
-5. **Spill + handle** — full body written to disk; agent gets a handle and a summary, and
+5. **Spill + handle** - full body written to disk; agent gets a handle and a summary, and
    opts in to more detail only when needed.
 
 Every optimization is configurable per call (`verbosity: summary | headers | full`) so the

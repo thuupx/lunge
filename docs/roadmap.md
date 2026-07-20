@@ -3,7 +3,7 @@
 Phased plan from empty repo to a gRPC-capable, CI-friendly tool. Each phase ends with a
 usable, demoable state. Effort markers are relative (S/M/L), not calendar estimates.
 
-## Phase 0 — Scaffolding & the FFI spine  `S`
+## Phase 0 - Scaffolding & the FFI spine  `S`
 
 Goal: prove the Rust↔TS↔MCP pipeline end-to-end with one trivial tool.
 
@@ -17,7 +17,7 @@ Goal: prove the Rust↔TS↔MCP pipeline end-to-end with one trivial tool.
 
 **Exit criteria**: an agent can call `ping` and get a Rust-produced response over stdio. ✅ (met locally)
 
-## Phase 1 — MVP: REST + GraphQL + assertions + token optimizer  `L`
+## Phase 1 - MVP: REST + GraphQL + assertions + token optimizer  `L`
 
 Goal: the tool is genuinely useful for day-to-day API testing of request/response APIs.
 
@@ -35,9 +35,9 @@ Goal: the tool is genuinely useful for day-to-day API testing of request/respons
 - [x] Examples + e2e verification against a local mock server (`pnpm e2e`).
 
 **Exit criteria**: agent can log in, chain a token, call a protected endpoint, assert the
-result, and drill into a large response — all within a small token budget. ✅ (verified by `pnpm e2e`)
+result, and drill into a large response - all within a small token budget. ✅ (verified by `pnpm e2e`)
 
-## Phase 2 — Streaming + reusable collections  `L`
+## Phase 2 - Streaming + reusable collections  `L`
 
 Goal: cover WebSocket/SSE and make tests reusable & shareable.
 
@@ -55,7 +55,7 @@ Goal: cover WebSocket/SSE and make tests reusable & shareable.
 **Exit criteria**: agent can run a saved multi-step YAML suite that mixes HTTP + WS/SSE,
 and can subscribe to a stream and assert on collected frames. ✅ (verified by `pnpm e2e`)
 
-## Phase 3 — gRPC + reporting  `M`
+## Phase 3 - gRPC + reporting  `M`
 
 - [ ] Rust `grpc` module (tonic): unary + streaming (bounded), server reflection,
       `.proto`/descriptor loading, metadata, deadlines, TLS.
@@ -67,7 +67,7 @@ and can subscribe to a stream and assert on collected frames. ✅ (verified by `
 **Exit criteria**: gRPC services can be tested without a `.proto` (via reflection), and a
 collection run emits a CI-consumable report.
 
-## Phase 4 — Advanced & imports  `M`
+## Phase 4 - Advanced & imports  `M`
 
 - [ ] Data-driven runs (CSV/JSON datasets, `repeat`).
 - [ ] OpenAPI/Swagger import → collection skeleton.
@@ -90,5 +90,5 @@ collection run emits a CI-consumable report.
 
 ## Suggested first task
 
-Start with **Phase 0**. It is small but de-risks the single biggest unknown in this design —
-the Rust → napi-rs → TypeScript → MCP round trip — before any protocol work begins.
+Start with **Phase 0**. It is small but de-risks the single biggest unknown in this design -
+the Rust → napi-rs → TypeScript → MCP round trip - before any protocol work begins.

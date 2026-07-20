@@ -2,11 +2,11 @@
 
 This is the proposed tool API the agent sees. Design principles:
 
-- **Few, powerful tools** rather than many narrow ones — keeps the agent's tool list small
+- **Few, powerful tools** rather than many narrow ones - keeps the agent's tool list small
   and the schema token cost low.
-- **Summary-first output** — every tool defaults to `verbosity: "summary"`; the agent
+- **Summary-first output** - every tool defaults to `verbosity: "summary"`; the agent
   escalates with `inspect_response` when it needs more.
-- **Handles over payloads** — large results are referenced by id, not inlined.
+- **Handles over payloads** - large results are referenced by id, not inlined.
 
 Tools are grouped below. Each shows key inputs and the shape of the output.
 
@@ -87,7 +87,7 @@ For long-lived interactive sessions where bounded collection isn't enough:
 ## Inspection tools
 
 ### `inspect_response`  `P1`
-Drill into a stored response without re-running it — the primary token-saving escape hatch.
+Drill into a stored response without re-running it - the primary token-saving escape hatch.
 ```jsonc
 { "handle": "resp_a1b2", "jsonpath": "$.items[0:5]", "verbosity": "full" }
 ```

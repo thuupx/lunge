@@ -1,7 +1,7 @@
 # Declarative Collection Format
 
 Collections let exploratory agent testing be promoted into **reusable, git-friendly test
-suites**. They are plain YAML (JSON is also accepted — same schema). A JSON Schema will be
+suites**. They are plain YAML (JSON is also accepted - same schema). A JSON Schema will be
 published so editors and the agent get validation/autocomplete.
 
 ## Goals
@@ -21,7 +21,7 @@ description: Log in, then fetch the profile with the returned token.
 # Variables usable via {{name}}. Values can be literals or reference the active env.
 vars:
   baseUrl: https://api.example.com
-  # secrets are NOT stored here — reference an environment variable instead
+  # secrets are NOT stored here - reference an environment variable instead
   password: "{{env.LOGIN_PASSWORD}}"
 
 # Optional: default settings applied to every step

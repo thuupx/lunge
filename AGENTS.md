@@ -30,12 +30,17 @@ Implemented tools: `http_request`, `graphql_request`, `graphql_introspect`, `ws_
 
 ## Layout
 
-- `crates/core` — Rust engine compiled to a `.node` addon via napi-rs. FFI contract is
+- `crates/core` - Rust engine compiled to a `.node` addon via napi-rs. FFI contract is
   JSON-string in / JSON-string out. Generated `index.js` / `index.d.ts` / `*.node` are
   produced by `napi build` and are git-ignored.
-- `packages/mcp-server` — TypeScript MCP server (stdio transport). Tools live in
+- `packages/mcp-server` - TypeScript MCP server (stdio transport). Tools live in
   `src/tools/`; `src/native.ts` is the typed wrapper over the addon.
-- `scripts/e2e.mjs` — end-to-end stdio verification (31 checks).
+- `apps/web` - Next.js 16 + shadcn (base-nova preset, Tailwind v4) marketing site + docs.
+  Custom dark theme (OLED + green accent) per `ui-ux-pro-max` design system. Pages: `/`
+  (landing: Hero / Pillars / Protocols / Comparison / CTA) and `/docs/*` (overview,
+  install, quickstart, tools, architecture, collections). Tools reference at
+  `/docs/tools` is an interactive client component backed by `src/lib/content.ts`.
+- `scripts/e2e.mjs` - end-to-end stdio verification (31 checks).
 
 ## Commands (run from repo root)
 
@@ -47,10 +52,13 @@ Implemented tools: `http_request`, `graphql_request`, `graphql_introspect`, `ws_
 - End-to-end verification: `pnpm e2e` (requires `pnpm build` first; spins up a local
   test server and drives every tool over stdio)
 - Run the server (dev): `pnpm dev`
+- Run the web app (dev): `pnpm dev:web` (Next.js 16 on http://localhost:3000)
+- Build the web app: `pnpm build:web`
+- Lint the web app: `pnpm lint:web`
 
 ## napi-rs notes
 
-- Uses napi-rs v3 (`napi`/`napi-derive` = "3", `napi-build` stays "2.3" — it is v3-compatible).
+- Uses napi-rs v3 (`napi`/`napi-derive` = "3", `napi-build` stays "2.3" - it is v3-compatible).
 - `napi build --platform` targets `aarch64-apple-darwin` on this machine and writes the
   addon + generated `index.js`/`index.d.ts` into `crates/core/`.
 - If generated `index.d.ts` looks stale, the crate's per-target incremental cache is the

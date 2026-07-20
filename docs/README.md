@@ -1,7 +1,7 @@
 # volley
 
 An **MCP (Model Context Protocol) server that lets AI agents perform API testing
-autonomously** — REST, GraphQL, WebSocket, SSE, and (later) gRPC — without any GUI,
+autonomously** - REST, GraphQL, WebSocket, SSE, and (later) gRPC - without any GUI,
 manual clicking, or heavyweight desktop app.
 
 It is a lightweight, token-efficient alternative to Postman/Bruno for the era of
@@ -20,12 +20,12 @@ no bloated feature surface to pay for.
 
 ## Design pillars
 
-1. **Agent-native** — designed for LLM tool calls, not human UIs.
-2. **Token-efficient** — every response is filtered, truncated, and summarized. Full
+1. **Agent-native** - designed for LLM tool calls, not human UIs.
+2. **Token-efficient** - every response is filtered, truncated, and summarized. Full
    payloads are spilled to disk and referenced by handle so the context stays small.
-3. **Fast & portable** — a Rust core (execution + protocols + summarization) exposed to
+3. **Fast & portable** - a Rust core (execution + protocols + summarization) exposed to
    a thin TypeScript MCP layer via [napi-rs](https://napi.rs/).
-4. **Both ad-hoc and reusable** — agents can fire one-off requests *or* create, save, and
+4. **Both ad-hoc and reusable** - agents can fire one-off requests *or* create, save, and
    re-run declarative collections stored as files.
 
 ## Documents

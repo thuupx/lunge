@@ -17,7 +17,7 @@ that apply to all protocols. Each item is tagged with its target phase (see
 ## 2. GraphQL  `P1`
 
 - Queries, mutations, and variables over HTTP.
-- **Schema introspection** — fetch and summarize the schema so the agent can discover
+- **Schema introspection** - fetch and summarize the schema so the agent can discover
   operations without a human pasting docs.
 - Named operations and multi-operation documents.
 - GraphQL error surface (the `errors` array) parsed and asserted separately from HTTP status.
@@ -66,7 +66,7 @@ that apply to all protocols. Each item is tagged with its target phase (see
 - `{{variable}}` templating in URLs, headers, bodies, and assertions.
 - Built-in dynamic functions: `{{uuid}}`, `{{now}}`, `{{randomInt}}`, `{{base64(...)}}`, etc.
 - **Response extraction & chaining**: capture a value from response A (via JSONPath) into a
-  variable and reuse it in request B — enables login → use-token → call-protected-endpoint flows.
+  variable and reuse it in request B - enables login → use-token → call-protected-endpoint flows.
 - Secret masking: mark vars as secret so they are redacted in all output/logs.
 - `.env` file import. `P2`
 
@@ -108,6 +108,6 @@ that apply to all protocols. Each item is tagged with its target phase (see
 
 ## Explicit non-goals
 
-- No GUI (that's the whole point — Postman/Bruno already do that).
+- No GUI (that's the whole point - Postman/Bruno already do that).
 - Not a load/performance testing tool (k6/Gatling own that space).
 - Not a mock-server/contract-broker (may integrate later, out of scope for core).

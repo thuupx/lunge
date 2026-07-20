@@ -101,7 +101,7 @@ fn validate_schema(body: Option<&Value>, schema: &Value) -> (bool, String) {
 }
 
 /// Run a selector like `$.a.b` or `$.items.length` against a JSON body.
-/// Returns None when the path matches nothing (silent — for assertions).
+/// Returns None when the path matches nothing (silent - for assertions).
 pub fn select(body: Option<&Value>, path: &str) -> Option<Value> {
     select_with_error(body, path).ok().flatten()
 }

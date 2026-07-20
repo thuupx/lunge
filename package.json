@@ -9,7 +9,10 @@
     "build": "pnpm build:core && pnpm build:server",
     "dev": "pnpm --filter volley dev",
     "test:core": "cargo test --manifest-path crates/core/Cargo.toml",
-    "e2e": "node scripts/e2e.mjs"
+    "e2e": "node scripts/e2e.mjs",
+    "dev:web": "pnpm --filter web dev",
+    "build:web": "pnpm --filter web build",
+    "lint:web": "pnpm --filter web lint"
   },
   "engines": {
     "node": ">=18"
