@@ -1,0 +1,8 @@
+# Root package is private (see package.json). This .npmignore is a safety net
+# in case someone removes "private": true — npm publish at root should never
+# ship the whole monorepo. Publish from crates/core/ and packages/mcp-server/
+# instead, which have their own files[] allowlists.
+*
+!package.json
+!README.md
+!AGENTS.md

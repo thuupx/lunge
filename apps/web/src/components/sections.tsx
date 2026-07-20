@@ -249,19 +249,12 @@ export function CTA() {
         </p>
         <div
           data-reveal
-          className="mt-8 inline-flex flex-col gap-1 rounded-lg border border-border/60 bg-card/60 px-4 py-3 font-mono text-xs text-left"
+          className="mt-8 inline-flex items-center gap-3 rounded-lg border border-border/60 bg-card/60 px-4 py-3 font-mono text-xs"
           style={{ ["--vv-delay" as string]: "240ms" }}
         >
-          <span className="text-muted-foreground"># mcp.json</span>
-          <span className="text-foreground">
-            <span className="text-primary">&quot;volley&quot;</span>: {"{"}
-            <span className="text-muted-foreground"> &quot;command&quot;: &quot;node&quot;, </span>
-          </span>
-          <span className="pl-4 text-foreground">
-            <span className="text-muted-foreground">&quot;args&quot;: [</span>
-            <span className="text-primary">&quot;.../mcp-server/dist/index.js&quot;</span>
-            <span className="text-muted-foreground">] {"}"} </span>
-          </span>
+          <span className="text-muted-foreground">$</span>
+          <span className="text-foreground">npx -y </span>
+          <span className="text-primary">@thupham/volley-mcp</span>
         </div>
       </div>
     </section>

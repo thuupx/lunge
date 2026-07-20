@@ -4,8 +4,8 @@
 # Bumps:
 #   - package.json                       (root, private)
 #   - crates/core/Cargo.toml             (volley-core, [package].version)
-#   - crates/core/package.json           (@volley/core)
-#   - packages/mcp-server/package.json   (volley, the published MCP server)
+#   - crates/core/package.json           (@thupham/volley-core)
+#   - packages/mcp-server/package.json   (@thupham/volley-mcp, the published MCP server)
 #   - packages/mcp-server/src/index.ts   (McpServer ctor version string)
 #   - apps/web/package.json              (web, private)
 #
@@ -22,6 +22,7 @@
 #   --tag         Commit the bump and create a git tag `vX.Y.Z`.
 #   --dry-run     Print what would change; edit no files.
 #   --no-verify   Skip the clean-working-tree check.
+#   --publish-local  Build + publish for the current platform only (requires npm login).
 #   -h, --help    Show this help.
 #
 # No npm publish is performed — volley ships as a local stdio MCP server
@@ -59,6 +60,7 @@ EXPLICIT_VERSION=""
 TAG=false
 DRY_RUN=false
 VERIFY=true
+PUBLISH_LOCAL=false
 
 print_help() {
   sed -n '2,/^$/p' < "$0" | sed 's/^# \{0,1\}//'
@@ -73,6 +75,7 @@ for arg in "$@"; do
     --tag) TAG=true ;;
     --dry-run) DRY_RUN=true ;;
     --no-verify) VERIFY=false ;;
+    --publish-local) PUBLISH_LOCAL=true ;;
     *) die "Unknown argument: $arg (see --help)" ;;
   esac
 done
@@ -229,8 +232,28 @@ Bump version $CUR → $NEW across the monorepo."
   ok "Committed and tagged v$NEW."
   printf '%s  %sPush with:%s git push --follow-tags origin main\n' \
     "$C_DIM" "$C_RESET" "$C_RESET" >&2
+  printf '%s  %s→ triggers GitHub Actions release workflow%s\n' \
+    "$C_DIM" "$C_RESET" "$C_RESET" >&2
+  printf '%s  %s  (builds native addons for 8 platforms + publishes @thupham/volley-core and @thupham/volley-mcp)%s\n' \
+    "$C_DIM" "$C_RESET" "$C_RESET" >&2
 else
   log "Files bumped. Review with: git diff"
   log "Commit + tag with: scripts/release.sh $BUMP --tag  (re-run after reverting,"
   log "  or just: git add -A && git commit -m \"chore(release): v$NEW\" && git tag v$NEW"
+fi
+
+# ─── Local publish (optional, single-platform) ──────────────────────────────
+# The full cross-platform publish runs via GitHub Actions (release.yml) when
+# the tag is pushed. For a local single-platform publish, use the dedicated
+# scripts/publish.sh after bumping + committing:
+#
+#   scripts/release.sh patch --tag && git push --follow-tags origin main
+#   scripts/publish.sh            # publish current platform to npm
+#
+# publish.sh supports --core / --mcp / --dry-run / --no-build / --otp=NNNNNN.
+
+if $PUBLISH_LOCAL && ! $DRY_RUN; then
+  warn "--publish-local is deprecated; use scripts/publish.sh instead."
+  warn "Running scripts/publish.sh now..."
+  exec "$SCRIPT_DIR/publish.sh"
 fi

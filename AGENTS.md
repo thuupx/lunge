@@ -80,9 +80,29 @@ Implemented tools: `http_request`, `graphql_request`, `graphql_introspect`, `ws_
 {
   "mcpServers": {
     "volley": {
-      "command": "node",
-      "args": ["<repo>/packages/mcp-server/dist/index.js"]
+      "command": "npx",
+      "args": ["-y", "@thupham/volley-mcp"]
     }
   }
 }
 ```
+
+## npm publishing
+
+Volley is published to npm as two packages under the `@volley` org:
+
+- **`@thupham/volley-core`** — the Rust native addon (napi-rs). Published as a main package
+  plus platform-specific optional dependencies (`@thupham/volley-core-darwin-arm64`,
+  `@thupham/volley-core-linux-x64-gnu`, etc.). The generated `index.js` requires the right
+  platform package at runtime.
+- **`@thupham/volley-mcp`** — the TypeScript MCP server. Depends on `@thupham/volley-core`. The
+  `bin` name is `volley-mcp`, so `npx -y @thupham/volley-mcp` runs it directly.
+
+Cross-platform releases run via GitHub Actions (`.github/workflows/release.yml`):
+push a `v*` tag → matrix build for 8 targets → `napi prepublish` for `@thupham/volley-core`
+→ `npm publish` for `@thupham/volley-mcp`.
+
+For a local single-platform publish (testing): `pnpm publish` (runs
+`scripts/publish.sh`, requires `npm login` + `@thupham` org membership).
+Flags: `--core` / `--mcp` to publish one package, `--dry-run`, `--no-build`,
+`--otp=123456` for 2FA.

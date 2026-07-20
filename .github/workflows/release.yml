@@ -1,0 +1,173 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish (e.g. 1.0.0)"
+        required: true
+        type: string
+
+# Cancel in-progress releases when a new tag is pushed.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  id-token: write
+
+jobs:
+  # ── Build native addon for each platform ──────────────────────────────────
+  build-native:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: aarch64-apple-darwin
+            os: macos-14
+            name: darwin-arm64
+          - target: x86_64-apple-darwin
+            os: macos-13
+            name: darwin-x64
+          - target: x86_64-unknown-linux-gnu
+            os: ubuntu-22.04
+            name: linux-x64-gnu
+          - target: x86_64-unknown-linux-musl
+            os: ubuntu-22.04
+            name: linux-x64-musl
+            musl: true
+          - target: aarch64-unknown-linux-gnu
+            os: ubuntu-22.04
+            name: linux-arm64-gnu
+            cross: true
+          - target: aarch64-unknown-linux-musl
+            os: ubuntu-22.04
+            name: linux-arm64-musl
+            cross: true
+            musl: true
+          - target: x86_64-pc-windows-msvc
+            os: windows-latest
+            name: win32-x64-msvc
+          - target: aarch64-pc-windows-msvc
+            os: windows-latest
+            name: win32-arm64-msvc
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Install musl tools (Linux musl)
+        if: matrix.musl
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y musl-tools
+
+      - name: Install cross-compilation tools (Linux ARM)
+        if: matrix.cross
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gcc-aarch64-linux-gnu
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build native addon
+        working-directory: crates/core
+        env:
+          CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: ${{ matrix.cross && 'aarch64-linux-gnu-gcc' || '' }}
+        run: napi build --platform --release --target ${{ matrix.target }}
+
+      - name: Upload .node artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-${{ matrix.name }}
+          path: crates/core/*.node
+          if-no-files-found: error
+          retention-days: 7
+
+  # ── Publish @thupham/volley-core + platform packages ──────────────────────────────
+  publish-core:
+    needs: build-native
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download all native artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: native-*
+          path: crates/core/
+          merge-multiple: true
+
+      - name: List downloaded artifacts
+        run: ls -la crates/core/*.node
+
+      - name: Publish @thupham/volley-core + platform packages
+        working-directory: crates/core
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: napi prepublish -t npm
+
+  # ── Publish @thupham/volley-mcp (the MCP server) ──────────────────────────────────
+  publish-mcp:
+    needs: publish-core
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build MCP server
+        run: pnpm build:server
+
+      - name: Publish @thupham/volley-mcp
+        working-directory: packages/mcp-server
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm publish --access public --no-git-checks
