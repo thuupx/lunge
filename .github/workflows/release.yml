@@ -123,11 +123,22 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: native-*
-          path: crates/core/
+          path: crates/core/artifacts
           merge-multiple: true
 
       - name: List downloaded artifacts
-        run: ls -la crates/core/*.node
+        run: ls -la crates/core/artifacts/
+
+      - name: Create per-platform npm package dirs
+        working-directory: crates/core
+        run: pnpm exec napi create-npm-dirs
+
+      - name: Copy artifacts into npm/<platform>/ layout
+        working-directory: crates/core
+        run: pnpm exec napi artifacts -d artifacts
+
+      - name: Verify npm/ layout
+        run: find crates/core/npm -name '*.node' -type f
 
       - name: Publish @thupham/volley-core + platform packages
         working-directory: crates/core
