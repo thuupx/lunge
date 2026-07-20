@@ -162,6 +162,7 @@ export const comparison: { pain: string; approach: string }[] = [
   { pain: "Require human clicking in a GUI", approach: "Agent-native: everything is an MCP tool call" },
   { pain: "Postman is heavy, enterprise features are paywalled", approach: "Small, open, single local binary + thin MCP layer" },
   { pain: "Verbose responses blow up the LLM context window", approach: "Rust core summarizes/compresses output before it reaches the agent" },
+  { pain: "Tests are JS scripts you write (pm.test / pm.expect)", approach: "Tests are declarative JSON the agent emits (assert + extract)" },
   { pain: "Collections are locked into proprietary formats", approach: "Plain YAML/JSON files, git-friendly" },
   { pain: "Separate tools per protocol", approach: "One server for REST/GraphQL/WS/SSE/gRPC" },
 ];

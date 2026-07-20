@@ -47,7 +47,7 @@ export function ToolsExplorer() {
 
       <div className="mt-6 grid gap-4 md:grid-cols-2">
         {filtered.map((tool) => (
-          <Card key={tool.name} className="bg-card/50 border-border/60">
+          <Card key={tool.name} className="vv-lift bg-card/50 border-border/60 hover:border-primary/40">
             <CardHeader>
               <div className="flex items-center justify-between gap-3">
                 <code className="font-mono text-sm font-semibold text-primary">

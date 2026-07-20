@@ -1,7 +1,7 @@
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Hero } from "@/components/hero";
-import { Pillars, Protocols, Comparison, CTA } from "@/components/sections";
+import { Pillars, DeclarativeTesting, Protocols, Comparison, CTA } from "@/components/sections";
 
 export default function HomePage() {
   return (
@@ -10,6 +10,7 @@ export default function HomePage() {
       <main className="flex-1">
         <Hero />
         <Pillars />
+        <DeclarativeTesting />
         <Protocols />
         <Comparison />
         <CTA />

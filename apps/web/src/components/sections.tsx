@@ -14,10 +14,12 @@ export function Pillars() {
         />
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {pillars.map((p) => (
+          {pillars.map((p, i) => (
             <Card
               key={p.title}
-              className="bg-card/50 border-border/60 transition-colors hover:border-primary/40"
+              data-reveal
+              style={{ ["--vv-delay" as string]: `${i * 80}ms` }}
+              className="vv-lift bg-card/50 border-border/60 hover:border-primary/40"
             >
               <CardHeader>
                 <CardTitle className="text-base">{p.title}</CardTitle>
@@ -27,6 +29,103 @@ export function Pillars() {
               </CardContent>
             </Card>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function DeclarativeTesting() {
+  return (
+    <section id="testing" className="border-b border-border/60 py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionHeading
+          eyebrow="Declarative testing"
+          title="Agent emits JSON, not JavaScript"
+          subtitle="Postman agent mode makes you write pm.test scripts. Volley assertions are structured data the model can emit directly — no code generation, no JS to parse, no verbose output."
+        />
+
+        <div className="mt-14 grid gap-5 lg:grid-cols-2">
+          <Card
+            data-reveal
+            className="bg-card/50 border-border/60"
+          >
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-base">Postman agent mode</CardTitle>
+                <Badge variant="outline" className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                  Imperative JS
+                </Badge>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <pre className="overflow-x-auto rounded-md border border-border/60 bg-background/60 p-3 font-mono text-[11px] leading-relaxed text-muted-foreground">
+{`pm.test("login ok", () => {
+  pm.expect(res.code).to.equal(200);
+  pm.expect(res.json().token)
+    .to.be.a("string");
+  pm.expect(res.responseTime)
+    .to.be.below(500);
+});
+pm.variables.set("token",
+  res.json().token);`}
+              </pre>
+              <p className="mt-3 text-xs text-muted-foreground">
+                Agent must generate valid JS, the runner evaluates it, and output is
+                human-readable prose — expensive on the context window.
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card
+            data-reveal
+            style={{ ["--vv-delay" as string]: "80ms" }}
+            className="vv-lift bg-card/50 border-primary/40 hover:border-primary/60"
+          >
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-base text-primary">Volley assert</CardTitle>
+                <Badge className="bg-primary/15 text-primary border-primary/40 text-[10px] uppercase tracking-wider">
+                  Declarative JSON
+                </Badge>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <pre className="overflow-x-auto rounded-md border border-border/60 bg-background/60 p-3 font-mono text-[11px] leading-relaxed text-foreground/90">
+{`"assert": [
+  { "status": 200 },
+  { "jsonpath": "$.token", "exists": true },
+  { "timeMs": { "lt": 500 } }
+],
+"extract": { "token": "$.token" }`}
+              </pre>
+              <p className="mt-3 text-xs text-muted-foreground">
+                Agent emits structured JSON. The Rust core evaluates it and returns a
+                compact pass/fail summary. Same assertion power, a fraction of the tokens.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div
+          data-reveal
+          className="mx-auto mt-10 max-w-2xl text-center text-sm text-muted-foreground"
+          style={{ ["--vv-delay" as string]: "160ms" }}
+        >
+          <p>
+            Matchers:{" "}
+            <code className="font-mono text-xs text-foreground">equals</code>,{" "}
+            <code className="font-mono text-xs text-foreground">notEquals</code>,{" "}
+            <code className="font-mono text-xs text-foreground">in</code>,{" "}
+            <code className="font-mono text-xs text-foreground">contains</code>,{" "}
+            <code className="font-mono text-xs text-foreground">matches</code> (regex),{" "}
+            <code className="font-mono text-xs text-foreground">exists</code>,{" "}
+            <code className="font-mono text-xs text-foreground">gt/gte/lt/lte</code>,{" "}
+            <code className="font-mono text-xs text-foreground">length</code>, plus{" "}
+            <code className="font-mono text-xs text-foreground">not:</code> negation and{" "}
+            <code className="font-mono text-xs text-foreground">schema:</code> JSON Schema
+            validation.
+          </p>
         </div>
       </div>
     </section>
@@ -44,10 +143,12 @@ export function Protocols() {
         />
 
         <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {protocols.map((proto) => (
+          {protocols.map((proto, i) => (
             <Card
               key={proto.name}
-              className="relative bg-card/50 border-border/60 transition-colors hover:border-primary/40"
+              data-reveal
+              style={{ ["--vv-delay" as string]: `${i * 70}ms` }}
+              className="vv-lift relative bg-card/50 border-border/60 hover:border-primary/40"
             >
               <CardHeader>
                 <div className="flex items-center justify-between">
@@ -86,7 +187,10 @@ export function Comparison() {
           subtitle="The tools agents already use are GUI-first and verbose. Volley is the inverse: a small, open, token-thin tool surface designed for the model context."
         />
 
-        <div className="mt-14 overflow-hidden rounded-xl border border-border/60">
+        <div
+          data-reveal
+          className="mt-14 overflow-hidden rounded-xl border border-border/60"
+        >
           <table className="w-full text-left text-sm">
             <thead className="bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
               <tr>
@@ -119,17 +223,40 @@ export function CTA() {
     <section className="relative overflow-hidden py-24">
       <div className="pointer-events-none absolute inset-0 bg-radial-glow" aria-hidden />
       <div className="relative mx-auto max-w-3xl px-6 text-center">
-        <CircleDot className="mx-auto mb-5 h-8 w-8 text-primary" />
-        <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
+        <CircleDot
+          data-reveal
+          className="vv-hero-enter mx-auto mb-5 h-8 w-8 text-primary"
+        />
+        <h2
+          data-reveal
+          className="text-3xl font-semibold tracking-tight sm:text-4xl"
+          style={{ ["--vv-delay" as string]: "80ms" }}
+        >
           Ship API tests from your editor.
         </h2>
-        <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+        <p
+          data-reveal
+          className="mx-auto mt-4 max-w-xl text-muted-foreground"
+          style={{ ["--vv-delay" as string]: "160ms" }}
+        >
           Install Volley once and every agent you run gets a full API testing toolkit -
           no GUI, no copy-paste, no context bloat.
         </p>
-        <div className="mt-8 inline-flex items-center gap-3 rounded-lg border border-border/60 bg-card/60 px-4 py-3 font-mono text-xs">
-          <span className="text-muted-foreground">$</span>
-          <span className="text-foreground">pnpm add @volley/core</span>
+        <div
+          data-reveal
+          className="mt-8 inline-flex flex-col gap-1 rounded-lg border border-border/60 bg-card/60 px-4 py-3 font-mono text-xs text-left"
+          style={{ ["--vv-delay" as string]: "240ms" }}
+        >
+          <span className="text-muted-foreground"># mcp.json</span>
+          <span className="text-foreground">
+            <span className="text-primary">&quot;volley&quot;</span>: {"{"}
+            <span className="text-muted-foreground"> &quot;command&quot;: &quot;node&quot;, </span>
+          </span>
+          <span className="pl-4 text-foreground">
+            <span className="text-muted-foreground">&quot;args&quot;: [</span>
+            <span className="text-primary">&quot;.../mcp-server/dist/index.js&quot;</span>
+            <span className="text-muted-foreground">] {"}"} </span>
+          </span>
         </div>
       </div>
     </section>
@@ -146,7 +273,7 @@ function SectionHeading({
   subtitle: string;
 }) {
   return (
-    <div className="mx-auto max-w-2xl text-center">
+    <div data-reveal className="mx-auto max-w-2xl text-center">
       <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-primary/80">
         {eyebrow}
       </p>

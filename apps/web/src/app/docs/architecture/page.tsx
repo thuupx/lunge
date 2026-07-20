@@ -54,13 +54,6 @@ export default function DocsArchitecturePage() {
         <code>inspect_response</code> + a JSONPath when it needs more - paying only for the
         bytes it actually reads.
       </p>
-
-      <h2>napi-rs notes</h2>
-      <ul>
-        <li>Uses napi-rs v3 (<code>napi</code> / <code>napi-derive</code> = &quot;3&quot;); <code>napi-build</code> stays &quot;2.3&quot; (v3-compatible).</li>
-        <li><code>napi build --platform</code> targets the host architecture and writes the addon plus generated <code>index.js</code> / <code>index.d.ts</code> into <code>crates/core/</code>.</li>
-        <li>If generated <code>index.d.ts</code> looks stale, the crate&apos;s per-target incremental cache is the cause; a clean rebuild regenerates the type defs.</li>
-      </ul>
     </>
   );
 }

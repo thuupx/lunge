@@ -22,7 +22,7 @@ export default function DocsInstallPage() {
       <p>Clone the repo and build the Rust core plus the TypeScript MCP layer:</p>
       <pre>
         <code>{`git clone <repo>
-cd agent-requestor
+cd volley
 pnpm install
 pnpm build   # builds the Rust core, then the TS server`}</code>
       </pre>
@@ -48,7 +48,7 @@ pnpm build   # builds the Rust core, then the TS server`}</code>
   "mcpServers": {
     "volley": {
       "command": "node",
-      "args": ["/absolute/path/to/agent-requestor/packages/mcp-server/dist/index.js"]
+      "args": ["/absolute/path/to/volley/packages/mcp-server/dist/index.js"]
     }
   }
 }`}</code>

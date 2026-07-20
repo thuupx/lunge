@@ -23,6 +23,9 @@ export function SiteHeader() {
           <Link href="/#features" className="transition-colors hover:text-foreground">
             Features
           </Link>
+          <Link href="/#testing" className="transition-colors hover:text-foreground">
+            Testing
+          </Link>
           <Link href="/#protocols" className="transition-colors hover:text-foreground">
             Protocols
           </Link>

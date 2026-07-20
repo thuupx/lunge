@@ -17,6 +17,7 @@ export function SiteFooter() {
 
         <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-muted-foreground">
           <Link href="/#features" className="hover:text-foreground">Features</Link>
+          <Link href="/#testing" className="hover:text-foreground">Testing</Link>
           <Link href="/#protocols" className="hover:text-foreground">Protocols</Link>
           <Link href="/docs" className="hover:text-foreground">Docs</Link>
           <Link href="/docs/tools" className="hover:text-foreground">Tools</Link>
@@ -24,7 +25,7 @@ export function SiteFooter() {
         </nav>
 
         <p className="text-xs text-muted-foreground/70">
-          MIT licensed · Rust core + TypeScript MCP layer
+          MIT licensed · Developed by Thu Pham
         </p>
       </div>
     </footer>

@@ -1,5 +1,5 @@
 {
-  "name": "volley-monorepo",
+  "name": "volley",
   "version": "0.0.0",
   "private": true,
   "description": "MCP server that lets AI agents perform API testing (REST/GraphQL/WS/SSE/gRPC)",
