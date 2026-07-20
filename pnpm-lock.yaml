@@ -80,8 +80,8 @@ importers:
         version: 3.7.3(@emnapi/core@1.11.2)(@emnapi/runtime@1.11.2)(@types/node@22.20.1)
     optionalDependencies:
       '@thupham/volley-core-darwin-arm64':
-        specifier: 1.0.5
-        version: 1.0.5
+        specifier: 1.0.6
+        version: 1.0.6
 
   packages/mcp-server:
     dependencies:
@@ -1437,8 +1437,8 @@ packages:
   '@tailwindcss/postcss@4.3.3':
     resolution: {integrity: sha512-JTSZZGQi1AyKirbLN3azmjVzef92tcX7h+iSqPdaeStyFpGpDlKvvpxeOE8njhbUanbRwr3z8DyzhICWnMtQeg==}
 
-  '@thupham/volley-core-darwin-arm64@1.0.5':
-    resolution: {integrity: sha512-xsWWgjI966Lyo7NdmmJ3o9ePqk6P46qmsGE0SLW2fd0GpwT4snwOFbm5LV5fL7JaZXiFBQjVN2E3Qfg0OFwByg==}
+  '@thupham/volley-core-darwin-arm64@1.0.6':
+    resolution: {integrity: sha512-8xo2CrYUuyKznB/gI5w/mY1dfWnDOdImjQIz33aKIPeCwRJf+xdCELTvUBsLUCQsT2+xrM/w3S8qbhzifxynUQ==}
     cpu: [arm64]
     os: [darwin]
 
@@ -5015,7 +5015,7 @@ snapshots:
       postcss: 8.5.20
       tailwindcss: 4.3.3
 
-  '@thupham/volley-core-darwin-arm64@1.0.5':
+  '@thupham/volley-core-darwin-arm64@1.0.6':
     optional: true
 
   '@ts-morph/common@0.27.0':

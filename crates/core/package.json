@@ -1,6 +1,6 @@
 {
   "name": "@thupham/volley-core",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Rust core engine (native addon) for volley",
   "main": "index.js",
   "types": "index.d.ts",
