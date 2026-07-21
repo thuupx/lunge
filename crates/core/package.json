@@ -1,6 +1,6 @@
 {
   "name": "lunge-core",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Rust core engine (native addon) for lunge",
   "main": "index.js",
   "types": "index.d.ts",

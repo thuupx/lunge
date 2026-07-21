@@ -1,6 +1,6 @@
 {
   "name": "lunge-monorepo",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "private": true,
   "description": "MCP server that lets AI agents perform API testing (REST/GraphQL/WS/SSE/gRPC)",
   "scripts": {
