@@ -70,6 +70,16 @@ jobs:
         with:
           targets: ${{ matrix.target }}
 
+      - name: Cache Cargo build artifacts
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: crates/core
+          target: ${{ matrix.target }}
+          # Key by target + Cargo.lock so force-pushed tags reuse the
+          # compiled deps and only rebuild what actually changed.
+          key: ${{ matrix.target }}-${{ hashFiles('crates/**/Cargo.lock', '**/Cargo.toml') }}
+          save-if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') }}
+
       - name: Install musl tools (Linux x64 musl)
         if: matrix.musl
         run: |
