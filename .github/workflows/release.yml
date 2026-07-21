@@ -197,10 +197,10 @@ jobs:
       - name: Build MCP server
         run: pnpm build:server
 
-      - name: Publish lunge
+      - name: Publish lunge-mcp
         working-directory: packages/mcp-server
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_ACCESS: public
           NPM_CONFIG_PROVENANCE: true
-        run: npm publish --access public
+        run: pnpm publish --access public --no-git-checks
