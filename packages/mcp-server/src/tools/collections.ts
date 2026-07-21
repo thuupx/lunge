@@ -17,14 +17,18 @@ export function registerCollectionTools(server: McpServer, session: Session): vo
     },
     async ({ dir }) => {
       const files = listCollectionFiles(dir ?? process.cwd());
-      const items = files.map((path) => {
+      const items: Array<{ path: string; name?: string; steps: number } | { path: string; error: string }> = [];
+      for (const path of files) {
         try {
           const col = loadCollection(path);
-          return { path, name: col.name, steps: col.steps?.length ?? 0 };
+          // Only include files that look like a real collection (have a `steps` array).
+          // This filters out package.json, tsconfig.json, random YAML configs, etc.
+          if (!Array.isArray(col.steps)) continue;
+          items.push({ path, name: col.name, steps: col.steps.length });
         } catch {
-          return { path, error: "failed to parse" };
+          // Skip unparseable files silently — they're not collections.
         }
-      });
+      }
       return { content: [{ type: "text" as const, text: JSON.stringify(items, null, 2) }] };
     },
   );

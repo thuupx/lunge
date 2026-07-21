@@ -7,10 +7,12 @@ export function registerPolicyTool(server: McpServer, session: Session): void {
     "set_policy",
     {
       title: "Set request policy",
-      description: "Configure host allow/deny lists + dry-run mode. Glob patterns: *, *.example.com.",
+      description:
+        "Configure host allow/deny lists + dry-run mode. Glob patterns: *, *.example.com. " +
+        "Pass an empty array to allow/deny to clear that list. Returns {policy:{allow,deny,dryRun}}.",
       inputSchema: {
         allow: z.array(z.string()).optional().describe("Allowed host patterns. Empty = allow any non-denied host."),
-        deny: z.array(z.string()).optional().describe("Denied host patterns; takes precedence over allow."),
+        deny: z.array(z.string()).optional().describe("Denied host patterns; takes precedence over allow. Pass [] to clear."),
         dryRun: z.boolean().optional().describe("If true, validate requests but do not send them."),
       },
     },

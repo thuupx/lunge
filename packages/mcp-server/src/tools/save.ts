@@ -17,6 +17,7 @@ interface Step {
 }
 interface Collection {
   name?: string;
+  description?: string;
   vars?: Record<string, unknown>;
   defaults?: { headers?: Record<string, unknown>; timeoutMs?: number };
   steps?: Step[];
@@ -39,7 +40,11 @@ export function registerSaveTool(server: McpServer, session: Session): void {
     "save_request",
     {
       title: "Save request to collection",
-      description: "Persist last ad-hoc request (or explicit spec) as a new step in a collection file.",
+      description:
+        "Persist last ad-hoc request (or explicit spec) as a new step in a collection file. " +
+        "Params: path (required, .json/.yaml/.yml), id (optional, step id), type (optional, http|graphql|ws|sse), " +
+        "request (optional, explicit spec; defaults to last call's request), assert, extract, tags, name (optional, set collection name). " +
+        "Returns {saved, path, stepId, stepCount} or isError if no prior request and no explicit request.",
       inputSchema: {
         path: z.string().describe("Collection file path (.yaml/.yml/.json)."),
         id: z.string().optional().describe("Step id. Defaults to a generated one."),

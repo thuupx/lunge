@@ -16,7 +16,11 @@ export function registerImporterTools(server: McpServer): void {
     "import_openapi",
     {
       title: "Import OpenAPI to collection",
-      description: "Parse OpenAPI/Swagger (JSON/YAML) → Lunge collection. One step per operation with 2xx assertion.",
+      description:
+        "Parse OpenAPI/Swagger (JSON/YAML) → Lunge collection. One step per operation with 2xx assertion. " +
+        "Params: path (required, file path), out (optional, write collection to .json/.yaml/.yml), " +
+        "includeTags (optional, only ops with these tags), maxSteps (optional, cap step count, default 200). " +
+        "Returns {ok, imported, name, steps, writtenTo}.",
       inputSchema: {
         path: z.string().describe("Path to the OpenAPI/Swagger file."),
         out: z.string().optional().describe("Write the resulting collection to this path (.yaml/.yml/.json)."),
@@ -25,21 +29,30 @@ export function registerImporterTools(server: McpServer): void {
       },
     },
     async (args) => {
-      const doc = loadOpenApi(args.path);
-      const col = openApiToCollection(doc, { includeTags: args.includeTags, maxSteps: args.maxSteps });
-      if (args.out) writeFileSync(args.out, serialize(col, args.out), "utf8");
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: JSON.stringify(
-              { imported: true, name: col.name, steps: col.steps?.length ?? 0, writtenTo: args.out ?? null },
-              null,
-              2,
-            ),
-          },
-        ],
-      };
+      try {
+        const doc = loadOpenApi(args.path);
+        const col = openApiToCollection(doc, { includeTags: args.includeTags, maxSteps: args.maxSteps });
+        if (args.out) writeFileSync(args.out, serialize(col, args.out), "utf8");
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify(
+                { ok: true, imported: true, name: col.name, steps: col.steps?.length ?? 0, writtenTo: args.out ?? null },
+                null,
+                2,
+              ),
+            },
+          ],
+        };
+      } catch (e) {
+        return {
+          isError: true,
+          content: [
+            { type: "text" as const, text: `import_openapi failed: ${e instanceof Error ? e.message : String(e)}` },
+          ],
+        };
+      }
     },
   );
 
@@ -47,7 +60,11 @@ export function registerImporterTools(server: McpServer): void {
     "import_har",
     {
       title: "Import HAR to collection",
-      description: "Parse HAR file → Lunge collection. Splits query/headers/body. Optional 2xx filter.",
+      description:
+        "Parse HAR file → Lunge collection. Splits query/headers/body. Optional 2xx filter. " +
+        "Params: path (required, .json HAR file), out (optional, write to .json/.yaml/.yml), " +
+        "only2xx (optional, only keep 2xx responses), maxSteps (optional, cap step count, default 200). " +
+        "Returns {ok, imported, name, steps, writtenTo}.",
       inputSchema: {
         path: z.string().describe("Path to the HAR file (.json)."),
         out: z.string().optional().describe("Write the resulting collection to this path (.yaml/.yml/.json)."),
@@ -56,24 +73,33 @@ export function registerImporterTools(server: McpServer): void {
       },
     },
     async (args) => {
-      const har = loadHar(args.path);
-      const col = harToCollection(har, {
-        maxSteps: args.maxSteps,
-        filter: args.only2xx ? (e) => (e.response?.status ?? 0) >= 200 && (e.response?.status ?? 0) < 300 : undefined,
-      });
-      if (args.out) writeFileSync(args.out, serialize(col, args.out), "utf8");
-      return {
-        content: [
-          {
-            type: "text" as const,
-            text: JSON.stringify(
-              { imported: true, name: col.name, steps: col.steps?.length ?? 0, writtenTo: args.out ?? null },
-              null,
-              2,
-            ),
-          },
-        ],
-      };
+      try {
+        const har = loadHar(args.path);
+        const col = harToCollection(har, {
+          maxSteps: args.maxSteps,
+          filter: args.only2xx ? (e) => (e.response?.status ?? 0) >= 200 && (e.response?.status ?? 0) < 300 : undefined,
+        });
+        if (args.out) writeFileSync(args.out, serialize(col, args.out), "utf8");
+        return {
+          content: [
+            {
+              type: "text" as const,
+              text: JSON.stringify(
+                { ok: true, imported: true, name: col.name, steps: col.steps?.length ?? 0, writtenTo: args.out ?? null },
+                null,
+                2,
+              ),
+            },
+          ],
+        };
+      } catch (e) {
+        return {
+          isError: true,
+          content: [
+            { type: "text" as const, text: `import_har failed: ${e instanceof Error ? e.message : String(e)}` },
+          ],
+        };
+      }
     },
   );
 }

@@ -88,7 +88,10 @@ export function registerRequestTools(server: McpServer, session: Session): void 
     "graphql_request",
     {
       title: "GraphQL request",
-      description: "GraphQL query/mutation over HTTP. Separates errors from status. Supports {{var}} extraction.",
+      description:
+        "GraphQL query/mutation over HTTP. Supports {{var}} extraction. " +
+        "Note: `ok` reflects HTTP status only (200 = ok). GraphQL-level errors are returned in `graphqlErrors` — always check both. " +
+        "Use extract with $.data.* for success data and $.errors.* for error details.",
       inputSchema: {
         url: z.string().describe("GraphQL endpoint URL."),
         query: z.string().describe("GraphQL query/mutation document."),

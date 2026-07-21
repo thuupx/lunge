@@ -37,7 +37,10 @@ export function registerInspectTool(server: McpServer, session: Session): void {
       description:
         "Drill into a stored response by handle without re-running the request. " +
         "Use jsonpath to pull only the slice you need. Supports RFC 9535 filters " +
-        "($.items[?@.id==1]) and slices ($.items[0:5]). Use double quotes in filters.",
+        "($.items[?@.id==1]) and slices ($.items[0:5]). Use double quotes in filters. " +
+        "Omit jsonpath to return the full stored body — for graphql_introspect this is the enriched `schema` " +
+        "(so $.queries, $.mutations, $.inputTypes work directly); for ws_session it's the `frames` array; " +
+        "for sse_session it's the `events` array; otherwise it's the parsed bodyJson/bodyText.",
       inputSchema: {
         handle: z.string().describe("responseHandle from a prior tool call."),
         jsonpath: z

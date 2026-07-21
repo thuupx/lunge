@@ -21,6 +21,7 @@ export interface Step {
 }
 export interface Collection {
   name?: string;
+  description?: string;
   vars?: Record<string, unknown>;
   defaults?: { headers?: Record<string, unknown>; timeoutMs?: number };
   steps?: Step[];

@@ -10,6 +10,7 @@ import type { Collection, Step } from "./collections.js";
 
 interface OpenApiPathItem {
   summary?: string;
+  description?: string;
   operationId?: string;
   tags?: string[];
   parameters?: { name: string; in: string; required?: boolean; schema?: Record<string, unknown> }[];
@@ -23,12 +24,19 @@ type OpenApiPaths = Record<string, Record<string, OpenApiPathItem>>;
 interface OpenApiDoc {
   openapi?: string;
   swagger?: string;
-  info?: { title?: string; version?: string };
+  info?: { title?: string; version?: string; description?: string };
   servers?: { url: string }[];
   host?: string;
   basePath?: string;
   paths?: OpenApiPaths;
   components?: { securitySchemes?: Record<string, unknown> };
+}
+
+/** Param names that look like API keys / tokens / secrets. */
+const API_KEY_PATTERNS = /^(api[-_]?key|apikey|token|secret|access[-_]?token|auth)$/i;
+
+function isApiKeyParam(name: string): boolean {
+  return API_KEY_PATTERNS.test(name);
 }
 
 function exampleForSchema(schema: Record<string, unknown> | undefined): unknown {
@@ -73,6 +81,8 @@ export function openApiToCollection(doc: OpenApiDoc, opts: { includeTags?: strin
   const steps: Step[] = [];
   const paths = doc.paths ?? {};
   const max = opts.maxSteps ?? 200;
+  // Track required var placeholders so we can declare them at the collection level.
+  const requiredVars = new Set<string>();
   for (const [path, methods] of Object.entries(paths)) {
     for (const [method, op] of Object.entries(methods)) {
       if (!["get", "post", "put", "patch", "delete", "head", "options"].includes(method)) continue;
@@ -80,15 +90,49 @@ export function openApiToCollection(doc: OpenApiDoc, opts: { includeTags?: strin
       if (steps.length >= max) break;
       const url = joinUrl(base, path);
       const request: Record<string, unknown> = { method: method.toUpperCase(), url };
-      // Query parameters.
       const query: Record<string, unknown> = {};
+      let apiKeyAuth: { type: "apikey"; in: "query" | "header"; key: string; value: string } | undefined;
       for (const p of op.parameters ?? []) {
-        if (p.in === "query") query[p.name] = exampleForSchema(p.schema);
-        else if (p.in === "header" && p.required) {
-          request.headers = { ...(request.headers as object | undefined), [p.name]: `{{${p.name}}}` };
+        const example = exampleForSchema(p.schema);
+        if (p.in === "path") {
+          // Path params are always required. Substitute {name} → {{name}} in the URL
+          // and declare the var so the user knows to fill it in.
+          request.url = (request.url as string).replace(`{${p.name}}`, `{{${p.name}}}`);
+          requiredVars.add(p.name);
+        } else if (p.in === "query") {
+          if (isApiKeyParam(p.name)) {
+            // API key-style param: model as auth block with a {{var}} placeholder.
+            const varName = p.name;
+            apiKeyAuth = { type: "apikey", in: "query", key: p.name, value: `{{${varName}}}` };
+            if (p.required) requiredVars.add(varName);
+            // Do NOT also add it to `query` — the auth block handles it.
+          } else if (p.required) {
+            // Required param without a concrete example: use a {{var}} placeholder
+            // so the user knows to fill it in (via env or collection vars).
+            if (example === undefined || example === "" || example === 0 || example === false) {
+              query[p.name] = `{{${p.name}}}`;
+              requiredVars.add(p.name);
+            } else {
+              query[p.name] = example;
+            }
+          } else {
+            // Optional param: only include if there's a meaningful example/default.
+            if (example !== undefined && example !== "" && example !== 0 && example !== false) {
+              query[p.name] = example;
+            }
+          }
+        } else if (p.in === "header") {
+          if (isApiKeyParam(p.name) && !apiKeyAuth) {
+            apiKeyAuth = { type: "apikey", in: "header", key: p.name, value: `{{${p.name}}}` };
+            if (p.required) requiredVars.add(p.name);
+          } else if (p.required) {
+            request.headers = { ...(request.headers as object | undefined), [p.name]: `{{${p.name}}}` };
+            requiredVars.add(p.name);
+          }
         }
       }
       if (Object.keys(query).length) request.query = query;
+      if (apiKeyAuth) request.auth = apiKeyAuth;
       // Request body.
       const jsonBody = op.requestBody?.content?.["application/json"];
       if (jsonBody) {
@@ -106,7 +150,20 @@ export function openApiToCollection(doc: OpenApiDoc, opts: { includeTags?: strin
       });
     }
   }
-  return { name: doc.info?.title ?? "imported-openapi", steps };
+  // Declare required var placeholders at the collection level so the user
+  // knows what to fill in. Secrets reference {{env.NAME}} per the format docs.
+  const vars: Record<string, unknown> = {};
+  for (const v of requiredVars) {
+    if (isApiKeyParam(v)) {
+      vars[v] = `{{env.${v.toUpperCase()}}}`;
+    } else {
+      vars[v] = "";
+    }
+  }
+  const col: Collection = { name: doc.info?.title ?? "imported-openapi", steps };
+  if (doc.info?.description) col.description = doc.info.description;
+  if (Object.keys(vars).length) col.vars = vars;
+  return col;
 }
 
 export function loadOpenApi(path: string): OpenApiDoc {

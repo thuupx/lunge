@@ -15,7 +15,11 @@ export function registerStreamTools(server: McpServer, session: Session): void {
     "ws_session",
     {
       title: "WebSocket session (bounded)",
-      description: "Connect WS, send messages, collect frames until stop condition. Returns summarized batch.",
+      description:
+        "Connect WS, send messages, collect frames until stop condition. Returns summarized batch. " +
+        "Frame shape: {type:'text'|'binary', text:string, json:object|null}. " +
+        "Assertions: anyFrame {jsonpath,equals} matches any frame; frameCount {gte/lte/eq}. " +
+        "Example: assert=[{anyFrame:{jsonpath:'$.type',equals:'text'}},{frameCount:{gte:1}}].",
       inputSchema: {
         url: z.string().describe("ws:// or wss:// URL."),
         headers: z.record(z.string(), z.any()).optional(),
@@ -56,7 +60,11 @@ export function registerStreamTools(server: McpServer, session: Session): void {
     "sse_session",
     {
       title: "SSE session (bounded)",
-      description: "Subscribe to SSE, collect events until stop condition. Returns summarized batch with assertions.",
+      description:
+        "Subscribe to SSE, collect events until stop condition. Returns summarized batch with assertions. " +
+        "Event shape: {event:string, data:string, id:string|null, json:object|null}. " +
+        "Assertions: anyEvent {jsonpath,equals} matches any event; eventCount {gte/lte/eq}. " +
+        "Example: assert=[{anyEvent:{jsonpath:'$.event',equals:'notification'}},{eventCount:{gte:1}}].",
       inputSchema: {
         url: z.string().describe("SSE endpoint URL."),
         headers: z.record(z.string(), z.any()).optional(),
