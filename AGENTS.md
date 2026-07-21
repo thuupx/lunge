@@ -30,6 +30,21 @@ Implemented tools: `http_request`, `graphql_request`, `graphql_introspect`, `ws_
 - WS/SSE frame/event arrays are capped at 10 items in `full` verbosity with truncation markers.
 - Tool descriptions are kept short to minimize `tools/list` token weight.
 
+## Import tools (param reference)
+
+`import_openapi` / `import_har` use these params (defined in
+`packages/mcp-server/src/tools/importers.ts`):
+
+- `path` (required) — path to the OpenAPI/Swagger/HAR file.
+- `out` (optional) — write the resulting collection to this path. Extension
+  selects format: `.json` → JSON, `.yaml`/`.yml` → YAML.
+- `import_openapi` also accepts `includeTags` (string[]) and `maxSteps` (int).
+- `import_har` also accepts `only2xx` (boolean) and `maxSteps` (int).
+
+Note: the param is `out`, not `writeTo` / `write_to` / `filePath`. The tool
+returns `{ imported, name, steps, writtenTo }` where `writtenTo` is `null`
+when `out` is not provided.
+
 ## Layout
 
 - `crates/core` - Rust engine compiled to a `.node` addon via napi-rs. FFI contract is

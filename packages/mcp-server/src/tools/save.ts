@@ -66,10 +66,11 @@ export function registerSaveTool(server: McpServer, session: Session): void {
       if (args.name) col.name = args.name;
       col.steps ??= [];
       const id = args.id ?? `step-${col.steps.length + 1}`;
+      const { assert: _reqAssert, extract: _reqExtract, ...cleanRequest } = request;
       const step: Step = {
         id,
         type,
-        request,
+        request: cleanRequest,
         assert: args.assert ?? last?.assert,
         extract: args.extract ?? last?.extract,
         tags: args.tags,
