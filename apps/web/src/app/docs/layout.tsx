@@ -13,7 +13,7 @@ export default function DocsLayout({
       <div className="mx-auto flex w-full max-w-7xl flex-1 px-6">
         <DocsSidebar />
         <main className="min-w-0 flex-1 py-10 px-4">
-          <article className="prose-volley max-w-3xl">{children}</article>
+          <article className="prose-lunge max-w-3xl">{children}</article>
         </main>
       </div>
       <SiteFooter />

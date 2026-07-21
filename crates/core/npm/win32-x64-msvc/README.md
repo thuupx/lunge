@@ -1,3 +1,3 @@
-# `@thupham/volley-core-win32-x64-msvc`
+# `lunge-core-win32-x64-msvc`
 
-This is the **x86_64-pc-windows-msvc** binary for `@thupham/volley-core`
+This is the **x86_64-pc-windows-msvc** binary for `lunge-core`

@@ -1,7 +1,7 @@
 import { CodeBlock } from "@/components/code-block";
 
 export const metadata = {
-  title: "Quick start - Volley",
+  title: "Quick start - Lunge",
 };
 
 export default function DocsQuickstartPage() {

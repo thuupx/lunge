@@ -1,7 +1,7 @@
 import { ToolsExplorer } from "@/components/tools-explorer";
 
 export const metadata = {
-  title: "MCP tools - Volley",
+  title: "MCP tools - Lunge",
 };
 
 export default function DocsToolsPage() {

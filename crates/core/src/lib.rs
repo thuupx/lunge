@@ -1,6 +1,6 @@
 #![deny(clippy::all)]
 
-//! volley core engine.
+//! lunge core engine.
 //!
 //! FFI contract: every tool crosses the boundary as JSON strings (request in, result out),
 //! so the Rust types can evolve without breaking the TypeScript layer. See

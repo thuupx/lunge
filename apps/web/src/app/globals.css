@@ -49,7 +49,7 @@
 }
 
 /*
- * Volley MCP custom theme - Dark Mode (OLED) per ui-ux-pro-max design system.
+ * Lunge MCP custom theme - Dark Mode (OLED) per ui-ux-pro-max design system.
  * Primary:   #0F172A  (deep slate / midnight)
  * Accent:    #22C55E  (endpoint green / CTA)
  * Background:#020617  (near-black OLED)
@@ -208,18 +208,18 @@
 .vv-hero-enter-delay-4 { animation-delay: 320ms; }
 
 /* Lightweight prose styling for docs pages (no @tailwindcss/typography dep) */
-.prose-volley {
+.prose-lunge {
   color: var(--foreground);
   font-size: 0.95rem;
   line-height: 1.7;
 }
-.prose-volley h1 {
+.prose-lunge h1 {
   font-size: 2rem;
   font-weight: 600;
   letter-spacing: -0.02em;
   margin: 0 0 0.5rem;
 }
-.prose-volley h2 {
+.prose-lunge h2 {
   font-size: 1.4rem;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -227,31 +227,31 @@
   padding-top: 0.5rem;
   border-top: 1px solid var(--border);
 }
-.prose-volley h3 {
+.prose-lunge h3 {
   font-size: 1.1rem;
   font-weight: 600;
   margin: 1.75rem 0 0.5rem;
 }
-.prose-volley p {
+.prose-lunge p {
   margin: 0 0 1rem;
   color: var(--muted-foreground);
 }
-.prose-volley a {
+.prose-lunge a {
   color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.prose-volley ul,
-.prose-volley ol {
+.prose-lunge ul,
+.prose-lunge ol {
   margin: 0 0 1rem;
   padding-left: 1.25rem;
   color: var(--muted-foreground);
 }
-.prose-volley ul { list-style: disc; }
-.prose-volley ol { list-style: decimal; }
-.prose-volley li { margin: 0.25rem 0; }
-.prose-volley li::marker { color: var(--primary); }
-.prose-volley code {
+.prose-lunge ul { list-style: disc; }
+.prose-lunge ol { list-style: decimal; }
+.prose-lunge li { margin: 0.25rem 0; }
+.prose-lunge li::marker { color: var(--primary); }
+.prose-lunge code {
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.85em;
   background: var(--muted);
@@ -260,7 +260,7 @@
   border-radius: 0.3rem;
   color: var(--foreground);
 }
-.prose-volley pre {
+.prose-lunge pre {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 0.6rem;
@@ -270,50 +270,50 @@
   font-size: 0.82rem;
   line-height: 1.6;
 }
-.prose-volley pre code {
+.prose-lunge pre code {
   background: transparent;
   border: none;
   padding: 0;
   color: var(--foreground);
 }
-.prose-volley pre code.hljs {
+.prose-lunge pre code.hljs {
   padding: 0;
   background: transparent;
 }
-.prose-volley table {
+.prose-lunge table {
   width: 100%;
   border-collapse: collapse;
   margin: 0 0 1.25rem;
   font-size: 0.88rem;
 }
-.prose-volley th,
-.prose-volley td {
+.prose-lunge th,
+.prose-lunge td {
   border: 1px solid var(--border);
   padding: 0.5rem 0.75rem;
   text-align: left;
 }
-.prose-volley th {
+.prose-lunge th {
   background: var(--muted);
   color: var(--foreground);
   font-weight: 600;
 }
-.prose-volley td {
+.prose-lunge td {
   color: var(--muted-foreground);
 }
-.prose-volley blockquote {
+.prose-lunge blockquote {
   border-left: 3px solid var(--primary);
   padding: 0.25rem 0 0.25rem 1rem;
   margin: 0 0 1rem;
   color: var(--muted-foreground);
   font-style: italic;
 }
-.prose-volley hr {
+.prose-lunge hr {
   border: none;
   border-top: 1px solid var(--border);
   margin: 2rem 0;
 }
 
-/* ── highlight.js theme: Volley OLED (tuned to the green-accent palette) ──
+/* ── highlight.js theme: Lunge OLED (tuned to the green-accent palette) ──
  * Token colors use the design system: primary green for keywords/strings,
  * amber for numbers/attrs, sky for types/literals, muted for comments.
  */

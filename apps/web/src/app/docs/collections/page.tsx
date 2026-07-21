@@ -1,7 +1,7 @@
 import { CodeBlock } from "@/components/code-block";
 
 export const metadata = {
-  title: "Collections - Volley",
+  title: "Collections - Lunge",
 };
 
 export default function DocsCollectionsPage() {
@@ -16,7 +16,7 @@ export default function DocsCollectionsPage() {
       <h2>Why collections</h2>
       <p>
         Ad-hoc tool calls are great for exploration, but teams also need repeatable test
-        suites. Volley collections let you define ordered steps once and re-run them with
+        suites. Lunge collections let you define ordered steps once and re-run them with
         a single tool call. Variables thread from one step to the next; assertions gate
         execution; <code>only</code> and <code>tags</code> filter runs.
       </p>

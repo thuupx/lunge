@@ -1,3 +1,3 @@
-# `@thupham/volley-core-darwin-x64`
+# `lunge-core-darwin-x64`
 
-This is the **x86_64-apple-darwin** binary for `@thupham/volley-core`
+This is the **x86_64-apple-darwin** binary for `lunge-core`

@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# scripts/release.sh — bump volley versions across the monorepo.
+# scripts/release.sh — bump lunge versions across the monorepo.
 #
 # Bumps:
 #   - package.json                       (root, private)
-#   - crates/core/Cargo.toml             (volley-core, [package].version)
-#   - crates/core/package.json           (@thupham/volley-core)
-#   - packages/mcp-server/package.json   (@thupham/volley-mcp, the published MCP server)
+#   - crates/core/Cargo.toml             (lunge-core, [package].version)
+#   - crates/core/package.json           (lunge-core)
+#   - packages/mcp-server/package.json   (lunge, the published MCP server)
 #   - packages/mcp-server/src/index.ts   (McpServer ctor version string)
 #   - apps/web/package.json              (web, private)
 #
@@ -25,7 +25,7 @@
 #   --publish-local  Build + publish for the current platform only (requires npm login).
 #   -h, --help    Show this help.
 #
-# No npm publish is performed — volley ships as a local stdio MCP server
+# No npm publish is performed — lunge ships as a local stdio MCP server
 # (see docs/install). Publishing is a separate manual step if ever needed.
 
 set -euo pipefail
@@ -178,7 +178,7 @@ FILES=(
   "apps/web/package.json"
 )
 
-printf '%s%sVolley release%s\n' "$C_BOLD" "$C_BLUE" "$C_RESET" >&2
+printf '%s%sLunge release%s\n' "$C_BOLD" "$C_BLUE" "$C_RESET" >&2
 printf '  %sCurrent:%s %s\n' "$C_DIM" "$C_RESET" "$CUR" >&2
 printf '  %sNew:    %s %s%s%s\n' "$C_DIM" "$C_RESET" "$C_GREEN" "$NEW" "$C_RESET" >&2
 printf '  %sFiles:  %s %d\n' "$C_DIM" "$C_RESET" "${#FILES[@]}" >&2
@@ -228,13 +228,13 @@ if $TAG; then
 
 Bump version $CUR → $NEW across the monorepo."
 
-  git tag -a "v$NEW" -m "volley v$NEW"
+  git tag -a "v$NEW" -m "lunge v$NEW"
   ok "Committed and tagged v$NEW."
   printf '%s  %sPush with:%s git push --follow-tags origin main\n' \
     "$C_DIM" "$C_RESET" "$C_RESET" >&2
   printf '%s  %s→ triggers GitHub Actions release workflow%s\n' \
     "$C_DIM" "$C_RESET" "$C_RESET" >&2
-  printf '%s  %s  (builds native addons for 8 platforms + publishes @thupham/volley-core and @thupham/volley-mcp)%s\n' \
+  printf '%s  %s  (builds native addons for 8 platforms + publishes lunge-core and lunge)%s\n' \
     "$C_DIM" "$C_RESET" "$C_RESET" >&2
 else
   log "Files bumped. Review with: git diff"

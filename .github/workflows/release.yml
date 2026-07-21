@@ -100,10 +100,10 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
-  # ── Publish @thupham/volley-core + platform packages ──────────────────────────────
+  # ── Publish lunge-core + platform packages ──────────────────────────────
   # Uses npm Trusted Publisher (OIDC) — no NPM_TOKEN secret needed.
   # The package must be configured as a trusted publisher on npm:
-  #   repo: thuupx/volley, workflow: release.yml, environment: (none)
+  #   repo: thuupx/lunge, workflow: release.yml, environment: (none)
   # Requires `permissions: id-token: write` (set at workflow level).
   publish-core:
     needs: build-native
@@ -144,7 +144,7 @@ jobs:
       - name: Verify npm/ layout
         run: find crates/core/npm -name '*.node' -type f
 
-      - name: Publish @thupham/volley-core platform packages
+      - name: Publish lunge-core platform packages
         working-directory: crates/core
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -155,14 +155,14 @@ jobs:
           NPM_CONFIG_PROVENANCE: true
         run: pnpm exec napi prepublish -t npm --no-gh-release
 
-      - name: Publish @thupham/volley-core main package
+      - name: Publish lunge-core main package
         working-directory: crates/core
         env:
           NPM_CONFIG_ACCESS: public
           NPM_CONFIG_PROVENANCE: true
         run: npm publish --access public
 
-  # ── Publish @thupham/volley-mcp (the MCP server) ──────────────────────────────────
+  # ── Publish lunge (the MCP server) ──────────────────────────────────
   publish-mcp:
     needs: publish-core
     runs-on: ubuntu-22.04
@@ -184,7 +184,7 @@ jobs:
       - name: Build MCP server
         run: pnpm build:server
 
-      - name: Publish @thupham/volley-mcp
+      - name: Publish lunge
         working-directory: packages/mcp-server
         env:
           NPM_CONFIG_ACCESS: public

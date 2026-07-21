@@ -70,13 +70,13 @@ function requireNative() {
   } else if (process.platform === 'android') {
     if (process.arch === 'arm64') {
       try {
-        return require('./volley-core.android-arm64.node')
+        return require('./lunge-core.android-arm64.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-android-arm64')
-        const bindingPackageVersion = require('@thupham/volley-core-android-arm64/package.json').version
+        const binding = require('lunge-core-android-arm64')
+        const bindingPackageVersion = require('lunge-core-android-arm64/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -86,13 +86,13 @@ function requireNative() {
       }
     } else if (process.arch === 'arm') {
       try {
-        return require('./volley-core.android-arm-eabi.node')
+        return require('./lunge-core.android-arm-eabi.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-android-arm-eabi')
-        const bindingPackageVersion = require('@thupham/volley-core-android-arm-eabi/package.json').version
+        const binding = require('lunge-core-android-arm-eabi')
+        const bindingPackageVersion = require('lunge-core-android-arm-eabi/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -107,13 +107,13 @@ function requireNative() {
     if (process.arch === 'x64') {
       if ((process.config && process.config.variables && process.config.variables.shlib_suffix === 'dll.a') || (process.config && process.config.variables && process.config.variables.node_target_type === 'shared_library')) {
         try {
-        return require('./volley-core.win32-x64-gnu.node')
+        return require('./lunge-core.win32-x64-gnu.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-win32-x64-gnu')
-        const bindingPackageVersion = require('@thupham/volley-core-win32-x64-gnu/package.json').version
+        const binding = require('lunge-core-win32-x64-gnu')
+        const bindingPackageVersion = require('lunge-core-win32-x64-gnu/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -123,13 +123,13 @@ function requireNative() {
       }
       } else {
         try {
-        return require('./volley-core.win32-x64-msvc.node')
+        return require('./lunge-core.win32-x64-msvc.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-win32-x64-msvc')
-        const bindingPackageVersion = require('@thupham/volley-core-win32-x64-msvc/package.json').version
+        const binding = require('lunge-core-win32-x64-msvc')
+        const bindingPackageVersion = require('lunge-core-win32-x64-msvc/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -140,13 +140,13 @@ function requireNative() {
       }
     } else if (process.arch === 'ia32') {
       try {
-        return require('./volley-core.win32-ia32-msvc.node')
+        return require('./lunge-core.win32-ia32-msvc.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-win32-ia32-msvc')
-        const bindingPackageVersion = require('@thupham/volley-core-win32-ia32-msvc/package.json').version
+        const binding = require('lunge-core-win32-ia32-msvc')
+        const bindingPackageVersion = require('lunge-core-win32-ia32-msvc/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -156,13 +156,13 @@ function requireNative() {
       }
     } else if (process.arch === 'arm64') {
       try {
-        return require('./volley-core.win32-arm64-msvc.node')
+        return require('./lunge-core.win32-arm64-msvc.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-win32-arm64-msvc')
-        const bindingPackageVersion = require('@thupham/volley-core-win32-arm64-msvc/package.json').version
+        const binding = require('lunge-core-win32-arm64-msvc')
+        const bindingPackageVersion = require('lunge-core-win32-arm64-msvc/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -175,13 +175,13 @@ function requireNative() {
     }
   } else if (process.platform === 'darwin') {
     try {
-      return require('./volley-core.darwin-universal.node')
+      return require('./lunge-core.darwin-universal.node')
     } catch (e) {
       loadErrors.push(e)
     }
     try {
-      const binding = require('@thupham/volley-core-darwin-universal')
-      const bindingPackageVersion = require('@thupham/volley-core-darwin-universal/package.json').version
+      const binding = require('lunge-core-darwin-universal')
+      const bindingPackageVersion = require('lunge-core-darwin-universal/package.json').version
       if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
         throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
       }
@@ -191,13 +191,13 @@ function requireNative() {
     }
     if (process.arch === 'x64') {
       try {
-        return require('./volley-core.darwin-x64.node')
+        return require('./lunge-core.darwin-x64.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-darwin-x64')
-        const bindingPackageVersion = require('@thupham/volley-core-darwin-x64/package.json').version
+        const binding = require('lunge-core-darwin-x64')
+        const bindingPackageVersion = require('lunge-core-darwin-x64/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -207,13 +207,13 @@ function requireNative() {
       }
     } else if (process.arch === 'arm64') {
       try {
-        return require('./volley-core.darwin-arm64.node')
+        return require('./lunge-core.darwin-arm64.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-darwin-arm64')
-        const bindingPackageVersion = require('@thupham/volley-core-darwin-arm64/package.json').version
+        const binding = require('lunge-core-darwin-arm64')
+        const bindingPackageVersion = require('lunge-core-darwin-arm64/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -227,13 +227,13 @@ function requireNative() {
   } else if (process.platform === 'freebsd') {
     if (process.arch === 'x64') {
       try {
-        return require('./volley-core.freebsd-x64.node')
+        return require('./lunge-core.freebsd-x64.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-freebsd-x64')
-        const bindingPackageVersion = require('@thupham/volley-core-freebsd-x64/package.json').version
+        const binding = require('lunge-core-freebsd-x64')
+        const bindingPackageVersion = require('lunge-core-freebsd-x64/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -243,13 +243,13 @@ function requireNative() {
       }
     } else if (process.arch === 'arm64') {
       try {
-        return require('./volley-core.freebsd-arm64.node')
+        return require('./lunge-core.freebsd-arm64.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-freebsd-arm64')
-        const bindingPackageVersion = require('@thupham/volley-core-freebsd-arm64/package.json').version
+        const binding = require('lunge-core-freebsd-arm64')
+        const bindingPackageVersion = require('lunge-core-freebsd-arm64/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -264,13 +264,13 @@ function requireNative() {
     if (process.arch === 'x64') {
       if (isMusl()) {
         try {
-          return require('./volley-core.linux-x64-musl.node')
+          return require('./lunge-core.linux-x64-musl.node')
         } catch (e) {
           loadErrors.push(e)
         }
         try {
-          const binding = require('@thupham/volley-core-linux-x64-musl')
-          const bindingPackageVersion = require('@thupham/volley-core-linux-x64-musl/package.json').version
+          const binding = require('lunge-core-linux-x64-musl')
+          const bindingPackageVersion = require('lunge-core-linux-x64-musl/package.json').version
           if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
             throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
@@ -280,13 +280,13 @@ function requireNative() {
         }
       } else {
         try {
-          return require('./volley-core.linux-x64-gnu.node')
+          return require('./lunge-core.linux-x64-gnu.node')
         } catch (e) {
           loadErrors.push(e)
         }
         try {
-          const binding = require('@thupham/volley-core-linux-x64-gnu')
-          const bindingPackageVersion = require('@thupham/volley-core-linux-x64-gnu/package.json').version
+          const binding = require('lunge-core-linux-x64-gnu')
+          const bindingPackageVersion = require('lunge-core-linux-x64-gnu/package.json').version
           if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
             throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
@@ -298,13 +298,13 @@ function requireNative() {
     } else if (process.arch === 'arm64') {
       if (isMusl()) {
         try {
-          return require('./volley-core.linux-arm64-musl.node')
+          return require('./lunge-core.linux-arm64-musl.node')
         } catch (e) {
           loadErrors.push(e)
         }
         try {
-          const binding = require('@thupham/volley-core-linux-arm64-musl')
-          const bindingPackageVersion = require('@thupham/volley-core-linux-arm64-musl/package.json').version
+          const binding = require('lunge-core-linux-arm64-musl')
+          const bindingPackageVersion = require('lunge-core-linux-arm64-musl/package.json').version
           if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
             throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
@@ -314,13 +314,13 @@ function requireNative() {
         }
       } else {
         try {
-          return require('./volley-core.linux-arm64-gnu.node')
+          return require('./lunge-core.linux-arm64-gnu.node')
         } catch (e) {
           loadErrors.push(e)
         }
         try {
-          const binding = require('@thupham/volley-core-linux-arm64-gnu')
-          const bindingPackageVersion = require('@thupham/volley-core-linux-arm64-gnu/package.json').version
+          const binding = require('lunge-core-linux-arm64-gnu')
+          const bindingPackageVersion = require('lunge-core-linux-arm64-gnu/package.json').version
           if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
             throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
@@ -332,13 +332,13 @@ function requireNative() {
     } else if (process.arch === 'arm') {
       if (isMusl()) {
         try {
-          return require('./volley-core.linux-arm-musleabihf.node')
+          return require('./lunge-core.linux-arm-musleabihf.node')
         } catch (e) {
           loadErrors.push(e)
         }
         try {
-          const binding = require('@thupham/volley-core-linux-arm-musleabihf')
-          const bindingPackageVersion = require('@thupham/volley-core-linux-arm-musleabihf/package.json').version
+          const binding = require('lunge-core-linux-arm-musleabihf')
+          const bindingPackageVersion = require('lunge-core-linux-arm-musleabihf/package.json').version
           if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
             throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
@@ -348,13 +348,13 @@ function requireNative() {
         }
       } else {
         try {
-          return require('./volley-core.linux-arm-gnueabihf.node')
+          return require('./lunge-core.linux-arm-gnueabihf.node')
         } catch (e) {
           loadErrors.push(e)
         }
         try {
-          const binding = require('@thupham/volley-core-linux-arm-gnueabihf')
-          const bindingPackageVersion = require('@thupham/volley-core-linux-arm-gnueabihf/package.json').version
+          const binding = require('lunge-core-linux-arm-gnueabihf')
+          const bindingPackageVersion = require('lunge-core-linux-arm-gnueabihf/package.json').version
           if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
             throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
@@ -366,13 +366,13 @@ function requireNative() {
     } else if (process.arch === 'loong64') {
       if (isMusl()) {
         try {
-          return require('./volley-core.linux-loong64-musl.node')
+          return require('./lunge-core.linux-loong64-musl.node')
         } catch (e) {
           loadErrors.push(e)
         }
         try {
-          const binding = require('@thupham/volley-core-linux-loong64-musl')
-          const bindingPackageVersion = require('@thupham/volley-core-linux-loong64-musl/package.json').version
+          const binding = require('lunge-core-linux-loong64-musl')
+          const bindingPackageVersion = require('lunge-core-linux-loong64-musl/package.json').version
           if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
             throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
@@ -382,13 +382,13 @@ function requireNative() {
         }
       } else {
         try {
-          return require('./volley-core.linux-loong64-gnu.node')
+          return require('./lunge-core.linux-loong64-gnu.node')
         } catch (e) {
           loadErrors.push(e)
         }
         try {
-          const binding = require('@thupham/volley-core-linux-loong64-gnu')
-          const bindingPackageVersion = require('@thupham/volley-core-linux-loong64-gnu/package.json').version
+          const binding = require('lunge-core-linux-loong64-gnu')
+          const bindingPackageVersion = require('lunge-core-linux-loong64-gnu/package.json').version
           if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
             throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
@@ -400,13 +400,13 @@ function requireNative() {
     } else if (process.arch === 'riscv64') {
       if (isMusl()) {
         try {
-          return require('./volley-core.linux-riscv64-musl.node')
+          return require('./lunge-core.linux-riscv64-musl.node')
         } catch (e) {
           loadErrors.push(e)
         }
         try {
-          const binding = require('@thupham/volley-core-linux-riscv64-musl')
-          const bindingPackageVersion = require('@thupham/volley-core-linux-riscv64-musl/package.json').version
+          const binding = require('lunge-core-linux-riscv64-musl')
+          const bindingPackageVersion = require('lunge-core-linux-riscv64-musl/package.json').version
           if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
             throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
@@ -416,13 +416,13 @@ function requireNative() {
         }
       } else {
         try {
-          return require('./volley-core.linux-riscv64-gnu.node')
+          return require('./lunge-core.linux-riscv64-gnu.node')
         } catch (e) {
           loadErrors.push(e)
         }
         try {
-          const binding = require('@thupham/volley-core-linux-riscv64-gnu')
-          const bindingPackageVersion = require('@thupham/volley-core-linux-riscv64-gnu/package.json').version
+          const binding = require('lunge-core-linux-riscv64-gnu')
+          const bindingPackageVersion = require('lunge-core-linux-riscv64-gnu/package.json').version
           if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
             throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
           }
@@ -433,13 +433,13 @@ function requireNative() {
       }
     } else if (process.arch === 'ppc64') {
       try {
-        return require('./volley-core.linux-ppc64-gnu.node')
+        return require('./lunge-core.linux-ppc64-gnu.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-linux-ppc64-gnu')
-        const bindingPackageVersion = require('@thupham/volley-core-linux-ppc64-gnu/package.json').version
+        const binding = require('lunge-core-linux-ppc64-gnu')
+        const bindingPackageVersion = require('lunge-core-linux-ppc64-gnu/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -449,13 +449,13 @@ function requireNative() {
       }
     } else if (process.arch === 's390x') {
       try {
-        return require('./volley-core.linux-s390x-gnu.node')
+        return require('./lunge-core.linux-s390x-gnu.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-linux-s390x-gnu')
-        const bindingPackageVersion = require('@thupham/volley-core-linux-s390x-gnu/package.json').version
+        const binding = require('lunge-core-linux-s390x-gnu')
+        const bindingPackageVersion = require('lunge-core-linux-s390x-gnu/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -469,13 +469,13 @@ function requireNative() {
   } else if (process.platform === 'openharmony') {
     if (process.arch === 'arm64') {
       try {
-        return require('./volley-core.openharmony-arm64.node')
+        return require('./lunge-core.openharmony-arm64.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-openharmony-arm64')
-        const bindingPackageVersion = require('@thupham/volley-core-openharmony-arm64/package.json').version
+        const binding = require('lunge-core-openharmony-arm64')
+        const bindingPackageVersion = require('lunge-core-openharmony-arm64/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -485,13 +485,13 @@ function requireNative() {
       }
     } else if (process.arch === 'x64') {
       try {
-        return require('./volley-core.openharmony-x64.node')
+        return require('./lunge-core.openharmony-x64.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-openharmony-x64')
-        const bindingPackageVersion = require('@thupham/volley-core-openharmony-x64/package.json').version
+        const binding = require('lunge-core-openharmony-x64')
+        const bindingPackageVersion = require('lunge-core-openharmony-x64/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -501,13 +501,13 @@ function requireNative() {
       }
     } else if (process.arch === 'arm') {
       try {
-        return require('./volley-core.openharmony-arm.node')
+        return require('./lunge-core.openharmony-arm.node')
       } catch (e) {
         loadErrors.push(e)
       }
       try {
-        const binding = require('@thupham/volley-core-openharmony-arm')
-        const bindingPackageVersion = require('@thupham/volley-core-openharmony-arm/package.json').version
+        const binding = require('lunge-core-openharmony-arm')
+        const bindingPackageVersion = require('lunge-core-openharmony-arm/package.json').version
         if (bindingPackageVersion !== '1.0.7' && process.env.NAPI_RS_ENFORCE_VERSION_CHECK && process.env.NAPI_RS_ENFORCE_VERSION_CHECK !== '0') {
           throw new Error(`Native binding package version mismatch, expected 1.0.7 but got ${bindingPackageVersion}. You can reinstall dependencies to fix this issue.`)
         }
@@ -539,7 +539,7 @@ if (!nativeBinding || forceWasi) {
   let wasiBinding = null
   let wasiBindingError = null
   try {
-    wasiBinding = require('./volley-core.wasi.cjs')
+    wasiBinding = require('./lunge-core.wasi.cjs')
     nativeBinding = wasiBinding
   } catch (err) {
     if (forceWasi) {
@@ -548,7 +548,7 @@ if (!nativeBinding || forceWasi) {
   }
   if (!nativeBinding || forceWasi) {
     try {
-      wasiBinding = require('@thupham/volley-core-wasm32-wasi')
+      wasiBinding = require('lunge-core-wasm32-wasi')
       nativeBinding = wasiBinding
     } catch (err) {
       if (forceWasi) {

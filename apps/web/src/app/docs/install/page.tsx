@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Install — Volley",
+  title: "Install — Lunge",
 };
 
 export default function DocsInstallPage() {
@@ -7,23 +7,23 @@ export default function DocsInstallPage() {
     <>
       <h1>Install</h1>
       <p className="lead">
-        Volley ships as an npm package. Add it to any MCP-capable client and every
+        Lunge ships as an npm package. Add it to any MCP-capable client and every
         agent you run gets a full API testing toolkit — no GUI, no copy-paste, no
         context bloat.
       </p>
 
       <h2>Option 1: npx (recommended)</h2>
       <p>
-        The simplest setup. Your MCP client runs <code>npx -y @thupham/volley-mcp</code> which
+        The simplest setup. Your MCP client runs <code>npx -y lunge</code> which
         downloads the latest version on first use and caches it. No global install
         needed.
       </p>
       <pre>
         <code>{`{
   "mcpServers": {
-    "volley": {
+    "lunge": {
       "command": "npx",
-      "args": ["-y", "@thupham/volley-mcp"]
+      "args": ["-y", "lunge"]
     }
   }
 }`}</code>
@@ -32,13 +32,13 @@ export default function DocsInstallPage() {
       <h2>Option 2: global install</h2>
       <p>Install once, reference the binary directly:</p>
       <pre>
-        <code>{`npm install -g @thupham/volley-mcp
+        <code>{`npm install -g lunge
 
 # then in your MCP client config:
 {
   "mcpServers": {
-    "volley": {
-      "command": "volley-mcp"
+    "lunge": {
+      "command": "lunge"
     }
   }
 }`}</code>
@@ -62,16 +62,16 @@ export default function DocsInstallPage() {
       </p>
 
       <blockquote>
-        Tip: the <code>bin</code> name is <code>volley-mcp</code>. When you run
-        <code>npx -y @thupham/volley-mcp</code>, npx invokes the <code>volley-mcp</code>
+        Tip: the <code>bin</code> name is <code>lunge</code>. When you run
+        <code>npx -y lunge</code>, npx invokes the <code>lunge</code>
         binary automatically.
       </blockquote>
 
       <h2>From source (development)</h2>
-      <p>If you want to hack on Volley itself or run a local build:</p>
+      <p>If you want to hack on Lunge itself or run a local build:</p>
       <pre>
         <code>{`git clone <repo>
-cd volley
+cd lunge
 pnpm install
 pnpm build   # builds the Rust core, then the TS server`}</code>
       </pre>
@@ -81,9 +81,9 @@ pnpm build   # builds the Rust core, then the TS server`}</code>
       <pre>
         <code>{`{
   "mcpServers": {
-    "volley": {
+    "lunge": {
       "command": "node",
-      "args": ["/absolute/path/to/volley/packages/mcp-server/dist/index.js"]
+      "args": ["/absolute/path/to/lunge/packages/mcp-server/dist/index.js"]
     }
   }
 }`}</code>

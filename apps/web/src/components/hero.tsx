@@ -50,7 +50,7 @@ export function Hero() {
           </div>
 
           <p className="vv-hero-enter vv-hero-enter-delay-4 mt-6 font-mono text-xs text-muted-foreground/70">
-            npx -y @thupham/volley-mcp &nbsp;·&nbsp; cursor / windsurf / claude / vscode
+            npx -y lunge &nbsp;·&nbsp; cursor / windsurf / claude / vscode
           </p>
         </div>
 

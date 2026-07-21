@@ -43,7 +43,7 @@ export function DeclarativeTesting() {
         <SectionHeading
           eyebrow="Declarative testing"
           title="Agent emits JSON, not JavaScript"
-          subtitle="Postman agent mode makes you write pm.test scripts. Volley assertions are structured data the model can emit directly — no code generation, no JS to parse, no verbose output."
+          subtitle="Postman agent mode makes you write pm.test scripts. Lunge assertions are structured data the model can emit directly — no code generation, no JS to parse, no verbose output."
         />
 
         <div className="mt-14 grid gap-5 lg:grid-cols-2">
@@ -87,7 +87,7 @@ pm.variables.set("token",
           >
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle className="text-base text-primary">Volley assert</CardTitle>
+                <CardTitle className="text-base text-primary">Lunge assert</CardTitle>
                 <Badge className="bg-primary/15 text-primary border-primary/40 text-[10px] uppercase tracking-wider">
                   Declarative JSON
                 </Badge>
@@ -144,7 +144,7 @@ export function Protocols() {
         <SectionHeading
           eyebrow="Protocols"
           title="One server, every protocol"
-          subtitle="Stop juggling Postman, a WS client, an SSE inspector, and a GraphQL playground. Volley covers them all behind a single MCP tool surface."
+          subtitle="Stop juggling Postman, a WS client, an SSE inspector, and a GraphQL playground. Lunge covers them all behind a single MCP tool surface."
         />
 
         <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -189,7 +189,7 @@ export function Comparison() {
         <SectionHeading
           eyebrow="Why this exists"
           title="Postman without the Postman"
-          subtitle="The tools agents already use are GUI-first and verbose. Volley is the inverse: a small, open, token-thin tool surface designed for the model context."
+          subtitle="The tools agents already use are GUI-first and verbose. Lunge is the inverse: a small, open, token-thin tool surface designed for the model context."
         />
 
         <div
@@ -200,7 +200,7 @@ export function Comparison() {
             <thead className="bg-muted/40 text-xs uppercase tracking-wider text-muted-foreground">
               <tr>
                 <th className="px-5 py-3 font-medium">Pain with Postman / Bruno</th>
-                <th className="px-5 py-3 font-medium text-primary">Volley approach</th>
+                <th className="px-5 py-3 font-medium text-primary">Lunge approach</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border/60">
@@ -244,7 +244,7 @@ export function CTA() {
           className="mx-auto mt-4 max-w-xl text-muted-foreground"
           style={{ ["--vv-delay" as string]: "160ms" }}
         >
-          Install Volley once and every agent you run gets a full API testing toolkit -
+          Install Lunge once and every agent you run gets a full API testing toolkit -
           no GUI, no copy-paste, no context bloat.
         </p>
         <div
@@ -254,7 +254,7 @@ export function CTA() {
         >
           <span className="text-muted-foreground">$</span>
           <span className="text-foreground">npx -y </span>
-          <span className="text-primary">@thupham/volley-mcp</span>
+          <span className="text-primary">lunge</span>
         </div>
       </div>
     </section>

@@ -9,7 +9,7 @@ export function SiteFooter() {
           <span className="flex h-7 w-7 items-center justify-center rounded-md bg-primary/15 ring-1 ring-primary/40">
             <Zap className="h-3.5 w-3.5 text-primary" />
           </span>
-          <span className="text-sm font-semibold">volley</span>
+          <span className="text-sm font-semibold">lunge</span>
           <span className="text-sm text-muted-foreground">
             - agent-native API testing
           </span>

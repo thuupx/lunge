@@ -1,3 +1,3 @@
-# `@thupham/volley-core-linux-x64-gnu`
+# `lunge-core-linux-x64-gnu`
 
-This is the **x86_64-unknown-linux-gnu** binary for `@thupham/volley-core`
+This is the **x86_64-unknown-linux-gnu** binary for `lunge-core`

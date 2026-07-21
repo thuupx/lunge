@@ -12,7 +12,7 @@ export function SiteHeader() {
             <Zap className="h-4 w-4 text-primary" />
           </span>
           <span className="text-base font-semibold tracking-tight">
-            volley
+            lunge
           </span>
           <Badge variant="secondary" className="ml-1 text-[10px] uppercase tracking-wider">
             MCP

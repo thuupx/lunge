@@ -1,18 +1,18 @@
 {
-  "name": "@thupham/volley-core-darwin-x64",
+  "name": "lunge-core-darwin-x64",
   "version": "1.0.6",
   "cpu": [
     "x64"
   ],
-  "main": "volley-core.darwin-x64.node",
+  "main": "lunge-core.darwin-x64.node",
   "files": [
-    "volley-core.darwin-x64.node"
+    "lunge-core.darwin-x64.node"
   ],
-  "description": "Rust core engine (native addon) for volley",
+  "description": "Rust core engine (native addon) for lunge",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/thuupx/volley.git",
+    "url": "https://github.com/thuupx/lunge.git",
     "directory": "crates/core"
   },
   "publishConfig": {

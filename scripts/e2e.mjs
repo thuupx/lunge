@@ -152,7 +152,7 @@ try {
   check("ws_close succeeds", wsClose.ok && wsClose.closed, wsClose);
 
   // save_request: persist the last http_request into a new collection, then run it
-  const tmp = mkdtempSync(join(tmpdir(), "volley-e2e-"));
+  const tmp = mkdtempSync(join(tmpdir(), "lunge-e2e-"));
   const savedPath = join(tmp, "saved.yaml");
   // Re-issue a request so there's a "last" to save.
   await call("http_request", { url: `${srv.httpUrl}/json`, assert: [{ status: 200 }] });

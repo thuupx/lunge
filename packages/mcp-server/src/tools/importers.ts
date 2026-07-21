@@ -16,7 +16,7 @@ export function registerImporterTools(server: McpServer): void {
     "import_openapi",
     {
       title: "Import OpenAPI to collection",
-      description: "Parse OpenAPI/Swagger (JSON/YAML) → Volley collection. One step per operation with 2xx assertion.",
+      description: "Parse OpenAPI/Swagger (JSON/YAML) → Lunge collection. One step per operation with 2xx assertion.",
       inputSchema: {
         path: z.string().describe("Path to the OpenAPI/Swagger file."),
         out: z.string().optional().describe("Write the resulting collection to this path (.yaml/.yml/.json)."),
@@ -47,7 +47,7 @@ export function registerImporterTools(server: McpServer): void {
     "import_har",
     {
       title: "Import HAR to collection",
-      description: "Parse HAR file → Volley collection. Splits query/headers/body. Optional 2xx filter.",
+      description: "Parse HAR file → Lunge collection. Splits query/headers/body. Optional 2xx filter.",
       inputSchema: {
         path: z.string().describe("Path to the HAR file (.json)."),
         out: z.string().optional().describe("Write the resulting collection to this path (.yaml/.yml/.json)."),

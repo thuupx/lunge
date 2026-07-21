@@ -1,5 +1,5 @@
 export const metadata = {
-  title: "Architecture - Volley",
+  title: "Architecture - Lunge",
 };
 
 export default function DocsArchitecturePage() {

@@ -1,9 +1,9 @@
 [package]
-name = "volley-core"
+name = "lunge-core"
 version = "1.0.7"
 edition = "2021"
 license = "MIT"
-description = "Rust core engine for volley (execution, protocols, assertions, token optimizer)"
+description = "Rust core engine for lunge (execution, protocols, assertions, token optimizer)"
 
 [lib]
 crate-type = ["cdylib"]

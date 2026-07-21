@@ -1,5 +1,5 @@
 /**
- * Importers that convert OpenAPI/Swagger and HAR documents into Volley collection files.
+ * Importers that convert OpenAPI/Swagger and HAR documents into Lunge collection files.
  * The output is a Collection object (see collections.ts) that can be serialized to YAML/JSON
  * and run with `run_collection`.
  */
@@ -67,7 +67,7 @@ function buildBase(doc: OpenApiDoc): string {
   return "";
 }
 
-/** Convert an OpenAPI/Swagger document (parsed) into a Volley Collection. */
+/** Convert an OpenAPI/Swagger document (parsed) into a Lunge Collection. */
 export function openApiToCollection(doc: OpenApiDoc, opts: { includeTags?: string[]; maxSteps?: number } = {}): Collection {
   const base = buildBase(doc);
   const steps: Step[] = [];

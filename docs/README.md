@@ -1,4 +1,4 @@
-# volley
+# lunge
 
 An **MCP (Model Context Protocol) server that lets AI agents perform API testing
 autonomously** - REST, GraphQL, WebSocket, SSE, and (later) gRPC - without any GUI,
@@ -10,7 +10,7 @@ no bloated feature surface to pay for.
 
 ## Why this exists
 
-| Pain with Postman/Bruno | volley approach |
+| Pain with Postman/Bruno | lunge approach |
 | --- | --- |
 | Require human clicking in a GUI | Agent-native: everything is an MCP tool call |
 | Postman is heavy, enterprise features are paywalled | Small, open, single local binary + thin MCP layer |

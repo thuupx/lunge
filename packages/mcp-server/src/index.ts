@@ -16,7 +16,7 @@ import { registerPolicyTool } from "./tools/policy.js";
 import { registerImporterTools } from "./tools/importers.js";
 
 async function main(): Promise<void> {
-  const server = new McpServer({ name: "volley", version: "1.0.7" });
+  const server = new McpServer({ name: "lunge", version: "1.0.7" });
   const session = new Session();
 
   registerRequestTools(server, session);
@@ -32,7 +32,7 @@ async function main(): Promise<void> {
   registerImporterTools(server);
 
   // stdout is reserved for the MCP JSON-RPC stream; log to stderr only.
-  process.stderr.write(`volley starting (core v${coreVersion()})\n`);
+  process.stderr.write(`lunge starting (core v${coreVersion()})\n`);
 
   const transport = new StdioServerTransport();
   await server.connect(transport);

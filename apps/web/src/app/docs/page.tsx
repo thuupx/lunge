@@ -2,13 +2,13 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export const metadata = {
-  title: "Docs - Volley",
+  title: "Docs - Lunge",
 };
 
 export default function DocsIndexPage() {
   return (
     <>
-      <h1>Volley documentation</h1>
+      <h1>Lunge documentation</h1>
       <p className="lead">
         An MCP (Model Context Protocol) server that lets AI agents perform API testing
         autonomously - REST, GraphQL, WebSocket, SSE, and (later) gRPC - without any GUI,
@@ -16,7 +16,7 @@ export default function DocsIndexPage() {
       </p>
 
       <p>
-        Volley is a lightweight, token-efficient alternative to Postman and Bruno for the
+        Lunge is a lightweight, token-efficient alternative to Postman and Bruno for the
         era of AI coding agents. The agent calls tools directly over stdio; there are no
         humans in the loop and no bloated feature surface to pay for. A Rust core handles
         execution, protocols, and summarization, exposed to a thin TypeScript MCP layer via
@@ -26,7 +26,7 @@ export default function DocsIndexPage() {
       <h2>What you&apos;ll find here</h2>
       <ul>
         <li>
-          <Link href="/docs/install">Install</Link> - set up the Volley MCP server in
+          <Link href="/docs/install">Install</Link> - set up the Lunge MCP server in
           Cursor, Windsurf, or Claude Desktop.
         </li>
         <li>
@@ -74,7 +74,7 @@ export default function DocsIndexPage() {
           href="/docs/install"
           className="inline-flex items-center gap-2 text-lg font-semibold text-foreground hover:text-primary"
         >
-          Install Volley
+          Install Lunge
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>

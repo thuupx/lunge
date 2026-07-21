@@ -1,22 +1,22 @@
 #!/usr/bin/env bash
-# scripts/publish.sh — publish @thupham/volley-core + @thupham/volley-mcp to npm.
+# scripts/publish.sh — publish lunge-core + lunge to npm.
 #
 # This is the local single-platform publish path. For cross-platform releases
 # (8 targets), push a v* tag and let .github/workflows/release.yml do it.
 #
 # Flow:
-#   1. Verify npm login + @thupham scope access.
+#   1. Verify npm login.
 #   2. Build the Rust native addon for the current platform (napi build --release).
-#   3. Publish @thupham/volley-core + the platform-specific package
-#      (e.g. @thupham/volley-core-darwin-arm64) via `napi prepublish -t npm`.
+#   3. Publish lunge-core + the platform-specific package
+#      (e.g. lunge-core-darwin-arm64) via `napi prepublish -t npm`.
 #   4. Build the TypeScript MCP server (tsc).
-#   5. Publish @thupham/volley-mcp via `pnpm publish` (replaces workspace:*
+#   5. Publish lunge via `pnpm publish` (replaces workspace:*
 #      with the real version automatically).
 #
 # Usage:
 #   scripts/publish.sh                     # build + publish both packages
-#   scripts/publish.sh --core              # only @thupham/volley-core
-#   scripts/publish.sh --mcp               # only @thupham/volley-mcp
+#   scripts/publish.sh --core              # only lunge-core
+#   scripts/publish.sh --mcp               # only lunge
 #   scripts/publish.sh --dry-run           # npm publish --dry-run (no actual upload)
 #   scripts/publish.sh --no-build          # skip builds, publish already-built artifacts
 #   scripts/publish.sh --otp=123456        # pass 2FA OTP to npm publish
@@ -25,7 +25,6 @@
 #
 # Requirements:
 #   - npm login (npm whoami must succeed)
-#   - membership in the @thupham npm org with publish permission
 #   - pnpm, napi (@napi-rs/cli), rust toolchain installed
 
 set -euo pipefail
@@ -85,8 +84,7 @@ if [ -n "$OTP" ]; then
 fi
 
 # ─── Pre-flight ─────────────────────────────────────────────────────────────
-printf '%s%sVolley publish%s\n' "$C_BOLD" "$C_BLUE" "$C_RESET" >&2
-printf '  %sScope:   %s %s%s%s\n' "$C_DIM" "$C_RESET" "$C_BLUE" "@thupham" "$C_RESET" >&2
+printf '%s%sLunge publish%s\n' "$C_BOLD" "$C_BLUE" "$C_RESET" >&2
 printf '  %sDry run: %s %s\n' "$C_DIM" "$C_RESET" "$($DRY_RUN && echo yes || echo no)" >&2
 printf '  %sBuild:   %s %s\n' "$C_DIM" "$C_RESET" "$($NO_BUILD && echo skip || echo yes)" >&2
 printf '  %sAccess:  %s %s\n' "$C_DIM" "$C_RESET" "$ACCESS" >&2
@@ -102,39 +100,29 @@ fi
 NPM_USER="$(npm whoami)"
 ok "npm logged in as: $NPM_USER"
 
-# Verify the user can publish to @thupham by reading org membership.
-# (Best-effort — if this fails for non-org reasons, we still proceed and let
-# npm publish surface the real auth error.)
-if npm org ls thupham "$NPM_USER" >/dev/null 2>&1; then
-  ok "Confirmed @thupham org membership"
-else
-  warn "Could not verify @thupham org membership (npm org ls failed)."
-  warn "If you are not a member with publish permission, the publish step will fail."
-fi
-
 # Read current versions.
 CORE_VERSION="$(grep -m1 -E '"version"' crates/core/package.json \
   | sed -E 's/.*"version"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/')"
 MCP_VERSION="$(grep -m1 -E '"version"' packages/mcp-server/package.json \
   | sed -E 's/.*"version"[[:space:]]*:[[:space:]]*"([^"]+)".*/\1/')"
 
-[ -n "$CORE_VERSION" ] || die "Could not read @thupham/volley-core version"
-[ -n "$MCP_VERSION" ]  || die "Could not read @thupham/volley-mcp version"
+[ -n "$CORE_VERSION" ] || die "Could not read lunge-core version"
+[ -n "$MCP_VERSION" ]  || die "Could not read lunge version"
 
-log "@thupham/volley-core @ $CORE_VERSION"
-log "@thupham/volley-mcp  @ $MCP_VERSION"
+log "lunge-core @ $CORE_VERSION"
+log "lunge  @ $MCP_VERSION"
 printf '\n' >&2
 
-# ─── Publish @thupham/volley-core ───────────────────────────────────────────
+# ─── Publish lunge-core ───────────────────────────────────────────
 if $DO_CORE; then
-  printf '%s%s─ @thupham/volley-core ─%s\n' "$C_BOLD" "$C_BLUE" "$C_RESET" >&2
+  printf '%s%s─ lunge-core ─%s\n' "$C_BOLD" "$C_BLUE" "$C_RESET" >&2
 
   if ! $NO_BUILD; then
     log "Building native addon (current platform, release)..."
     (
       cd crates/core
       pnpm exec napi build --platform --release
-    ) || die "napi build failed for @thupham/volley-core"
+    ) || die "napi build failed for lunge-core"
     ok "Native addon built"
   else
     warn "Skipping build (--no-build); using existing artifacts"
@@ -152,7 +140,7 @@ if $DO_CORE; then
   ( cd crates/core && pnpm exec napi artifacts -d . ) \
     || die "napi artifacts failed"
 
-  log "Publishing @thupham/volley-core + platform package via napi prepublish..."
+  log "Publishing lunge-core + platform package via napi prepublish..."
   if $DRY_RUN; then
     # napi prepublish doesn't have a --dry-run flag; show what it would do.
     warn "Dry run: skipping actual napi prepublish"
@@ -167,13 +155,13 @@ if $DO_CORE; then
     (
       cd crates/core
       pnpm exec napi prepublish "${NAPI_PUBLISH_FLAGS[@]}"
-    ) || die "napi prepublish failed for @thupham/volley-core"
-    ok "Published platform packages for @thupham/volley-core@$CORE_VERSION"
+    ) || die "napi prepublish failed for lunge-core"
+    ok "Published platform packages for lunge-core@$CORE_VERSION"
 
     # napi prepublish only publishes per-platform packages. The main
-    # @thupham/volley-core package (with index.js loader + optionalDependencies)
+    # lunge-core package (with index.js loader + optionalDependencies)
     # must be published separately.
-    log "Publishing main @thupham/volley-core package..."
+    log "Publishing main lunge-core package..."
     NPM_PUBLISH_ARGS=("publish" "--access" "$ACCESS")
     if $DRY_RUN; then
       NPM_PUBLISH_ARGS+=("--dry-run")
@@ -184,30 +172,30 @@ if $DO_CORE; then
     (
       cd crates/core
       npm "${NPM_PUBLISH_ARGS[@]}"
-    ) || die "npm publish failed for main @thupham/volley-core"
-    ok "Published @thupham/volley-core@$CORE_VERSION"
-    ok "Published @thupham/volley-core@$CORE_VERSION"
+    ) || die "npm publish failed for main lunge-core"
+    ok "Published lunge-core@$CORE_VERSION"
+    ok "Published lunge-core@$CORE_VERSION"
   fi
   printf '\n' >&2
 fi
 
-# ─── Publish @thupham/volley-mcp ────────────────────────────────────────────
+# ─── Publish lunge ────────────────────────────────────────────
 if $DO_MCP; then
-  printf '%s%s─ @thupham/volley-mcp ─%s\n' "$C_BOLD" "$C_BLUE" "$C_RESET" >&2
+  printf '%s%s─ lunge ─%s\n' "$C_BOLD" "$C_BLUE" "$C_RESET" >&2
 
   if ! $NO_BUILD; then
     log "Building TypeScript MCP server (tsc)..."
     (
       cd packages/mcp-server
       pnpm build
-    ) || die "tsc build failed for @thupham/volley-mcp"
+    ) || die "tsc build failed for lunge"
     ok "MCP server built"
   else
     warn "Skipping build (--no-build); using existing dist/"
     [ -d packages/mcp-server/dist ] || die "packages/mcp-server/dist missing. Run without --no-build first."
   fi
 
-  log "Publishing @thupham/volley-mcp..."
+  log "Publishing lunge..."
   PNPM_PUBLISH_FLAGS=("publish" "--access" "$ACCESS" "--no-git-checks")
   if $DRY_RUN; then
     PNPM_PUBLISH_FLAGS+=("--dry-run")
@@ -218,19 +206,19 @@ if $DO_MCP; then
   (
     cd packages/mcp-server
     pnpm "${PNPM_PUBLISH_FLAGS[@]}"
-  ) || die "pnpm publish failed for @thupham/volley-mcp"
-  ok "Published @thupham/volley-mcp@$MCP_VERSION"
+  ) || die "pnpm publish failed for lunge"
+  ok "Published lunge@$MCP_VERSION"
   printf '\n' >&2
 fi
 
 # ─── Summary ────────────────────────────────────────────────────────────────
 printf '%s%sDone!%s Published:\n' "$C_BOLD" "$C_GREEN" "$C_RESET" >&2
-$DO_CORE && printf '  • @thupham/volley-core@%s (current platform only)\n' "$CORE_VERSION" >&2
-$DO_MCP   && printf '  • @thupham/volley-mcp@%s\n'  "$MCP_VERSION"  >&2
+$DO_CORE && printf '  • lunge-core@%s (current platform only)\n' "$CORE_VERSION" >&2
+$DO_MCP   && printf '  • lunge@%s\n'  "$MCP_VERSION"  >&2
 printf '\n%sFor cross-platform releases, push a tag to trigger CI:%s\n' "$C_DIM" "$C_RESET" >&2
 printf '  git tag v%s\n' "$MCP_VERSION" >&2
 printf '  git push origin v%s\n\n' "$MCP_VERSION" >&2
 
 if $DO_CORE; then
-  printf '%sVerify:%s npx -y @thupham/volley-mcp\n' "$C_DIM" "$C_RESET" >&2
+  printf '%sVerify:%s npx -y lunge\n' "$C_DIM" "$C_RESET" >&2
 fi

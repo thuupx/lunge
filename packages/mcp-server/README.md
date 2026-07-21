@@ -1,34 +1,34 @@
-# @thupham/volley-mcp
+# lunge
 
 An [MCP server](https://modelcontextprotocol.io) that gives AI agents a full API
 testing toolkit — REST, GraphQL, WebSocket, and SSE — without bloating the
 context window.
 
-Volley is **agent-native**: every tool returns a small, structured summary the
+Lunge is **agent-native**: every tool returns a small, structured summary the
 LLM can act on immediately. Large payloads are spilled to a Rust-side store and
 referenced by handle. Tests are declarative JSON (`assert` + `extract`), not
 imperative JavaScript.
 
-**See more:** <https://volley.thupham.io.vn/>
+**See more:** <https://lunge.thupham.io.vn/>
 
 ## Install
 
 ```bash
-npm install -g @thupham/volley-mcp
+npm install -g lunge
 # or use via npx (no global install needed):
-npx -y @thupham/volley-mcp
+npx -y lunge
 ```
 
 ## Register with an MCP client
 
-Add Volley to any MCP-capable client's config:
+Add Lunge to any MCP-capable client's config:
 
 ```json
 {
   "mcpServers": {
-    "volley": {
+    "lunge": {
       "command": "npx",
-      "args": ["-y", "@thupham/volley-mcp"]
+      "args": ["-y", "lunge"]
     }
   }
 }
@@ -132,9 +132,9 @@ Assertion matchers: `equals`, `notEquals`, `in`, `contains`, `matches`,
 This package is the thin TypeScript MCP layer. The execution engine
 (HTTP/GraphQL/WS/SSE clients, assertions, JSONPath, summarization) lives in a
 Rust core compiled to a native addon via [napi-rs](https://napi.rs), published
-as [`@thupham/volley-core`](https://www.npmjs.com/package/@thupham/volley-core)
-with platform-specific binary packages (`@thupham/volley-core-darwin-arm64`,
-`@thupham/volley-core-linux-x64-gnu`, etc.).
+as [`lunge-core`](https://www.npmjs.com/package/lunge-core)
+with platform-specific binary packages (`lunge-core-darwin-arm64`,
+`lunge-core-linux-x64-gnu`, etc.).
 
 The FFI contract is JSON string in / JSON string out; results are parsed in
 `src/native.ts` so the rest of the server works with plain objects.
@@ -143,7 +143,7 @@ The FFI contract is JSON string in / JSON string out; results are parsed in
 
 ```bash
 git clone <repo>
-cd volley
+cd lunge
 pnpm install
 pnpm build          # builds the Rust core, then this server
 

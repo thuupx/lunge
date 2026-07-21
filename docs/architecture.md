@@ -53,7 +53,7 @@
 ## 3. Repository layout (monorepo)
 
 ```
-volley/
+lunge/
 ├── crates/
 │   └── core/                # Rust core engine (napi-rs crate)
 │       ├── src/
@@ -157,7 +157,7 @@ agent can escalate detail on demand.
   ```json
   {
     "mcpServers": {
-      "volley": { "command": "npx", "args": ["-y", "volley"] }
+      "lunge": { "command": "npx", "args": ["-y", "lunge"] }
     }
   }
   ```

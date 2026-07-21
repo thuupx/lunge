@@ -56,7 +56,7 @@ fn resolve_spec(request_json: &str) -> Result<(Value, Map<String, Value>), Strin
 }
 
 async fn perform(spec: HttpSpec, resolved: &Value) -> Result<String, String> {
-    let mut builder = reqwest::Client::builder().user_agent("volley/0.0");
+    let mut builder = reqwest::Client::builder().user_agent("lunge/0.0");
     if spec.follow_redirects == Some(false) {
         builder = builder.redirect(reqwest::redirect::Policy::none());
     }

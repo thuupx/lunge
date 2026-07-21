@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Volley - Agent-native API testing MCP server",
+  title: "Lunge - Agent-native API testing MCP server",
   description:
     "An MCP server that lets AI agents perform API testing autonomously - REST, GraphQL, WebSocket, SSE, and gRPC - without any GUI. Lightweight, token-efficient, built on a Rust core.",
   keywords: [
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
     "AI agents",
     "Postman alternative",
   ],
-  authors: [{ name: "volley" }],
+  authors: [{ name: "lunge" }],
   openGraph: {
-    title: "Volley - Agent-native API testing MCP server",
+    title: "Lunge - Agent-native API testing MCP server",
     description:
       "An MCP server that lets AI agents perform API testing autonomously - REST, GraphQL, WebSocket, SSE, and gRPC.",
     type: "website",
