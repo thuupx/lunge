@@ -74,7 +74,6 @@ jobs:
         uses: Swatinem/rust-cache@v2
         with:
           workspaces: crates/core
-          target: ${{ matrix.target }}
           # Key by target + Cargo.lock so force-pushed tags reuse the
           # compiled deps and only rebuild what actually changed.
           key: ${{ matrix.target }}-${{ hashFiles('crates/**/Cargo.lock', '**/Cargo.toml') }}
