@@ -6,6 +6,7 @@
 #   - crates/core/Cargo.toml             (lunge-core, [package].version)
 #   - crates/core/package.json           (lunge-core)
 #   - packages/mcp-server/package.json   (lunge-mcp, the published MCP server)
+#   - packages/mcp-server/server.json    (MCP Registry metadata: top-level + packages[0].version)
 #   - packages/mcp-server/src/index.ts   (McpServer ctor version string)
 #   - apps/web/package.json              (web, private)
 #
@@ -149,6 +150,19 @@ set_ts_ctor_version() {
     "\1\"$new\""
 }
 
+# Replace ALL version fields in server.json (MCP Registry metadata).
+# There are two: top-level "version" and packages[0].version.
+# Args: file, new_version
+set_server_json_version() {
+  local file="$1" new="$2"
+  # Replace all "version": "x.y.z" occurrences (both top-level and nested).
+  if [[ "$(uname)" == "Darwin" ]]; then
+    sed -i '' -E "s|(\"version\"[[:space:]]*:[[:space:]]*)\"[0-9]+\.[0-9]+\.[0-9]+\"|\1\"$new\"|g" "$file"
+  else
+    sed -i -E "s|(\"version\"[[:space:]]*:[[:space:]]*)\"[0-9]+\.[0-9]+\.[0-9]+\"|\1\"$new\"|g" "$file"
+  fi
+}
+
 # ─── Pre-flight ─────────────────────────────────────────────────────────────
 CUR="$(current_version)"
 valid_semver "$CUR" || die "Root package.json has invalid version: $CUR"
@@ -174,6 +188,7 @@ FILES=(
   "crates/core/Cargo.toml"
   "crates/core/package.json"
   "packages/mcp-server/package.json"
+  "packages/mcp-server/server.json"
   "packages/mcp-server/src/index.ts"
   "apps/web/package.json"
 )
@@ -204,6 +219,7 @@ set_json_version        "package.json"                       "$NEW"
 set_cargo_version       "crates/core/Cargo.toml"             "$NEW"
 set_json_version        "crates/core/package.json"           "$NEW"
 set_json_version        "packages/mcp-server/package.json"   "$NEW"
+set_server_json_version "packages/mcp-server/server.json"    "$NEW"
 set_ts_ctor_version     "packages/mcp-server/src/index.ts"   "$NEW"
 set_json_version        "apps/web/package.json"              "$NEW"
 
