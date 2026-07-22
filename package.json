@@ -1,6 +1,6 @@
 {
   "name": "lunge-monorepo",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "private": true,
   "description": "Agent-native advanced API client - execute and test REST/GraphQL/WS/SSE/gRPC requests from any MCP-capable AI agent",
   "scripts": {
