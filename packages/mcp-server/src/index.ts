@@ -17,7 +17,7 @@ import { registerImporterTools } from "./tools/importers.js";
 import { registerHistoryTools } from "./tools/history.js";
 
 async function main(): Promise<void> {
-  const server = new McpServer({ name: "lunge", version: "1.3.0" });
+  const server = new McpServer({ name: "lunge", version: "1.3.1" });
   const session = new Session();
 
   registerRequestTools(server, session);
