@@ -9,12 +9,34 @@ export default function DocsInstallPage() {
     <>
       <h1>Install</h1>
       <p className="lead">
-        Lunge ships as an npm package. Add it to any MCP-capable client and every
+        Lunge ships as an npm package and is listed on the{" "}
+        <a href="https://registry.modelcontextprotocol.io" target="_blank" rel="noopener noreferrer">
+          MCP Registry
+        </a>{" "}
+        (<code>io.github.thuupx/lunge</code>). Add it to any MCP-capable client and every
         agent you run gets an advanced API client - execute requests, run assertions,
         extract variables, replay collections - no GUI, no copy-paste, no context bloat.
       </p>
 
-      <h2>Option 1: npx (recommended)</h2>
+      <h2>Option 1: MCP Registry (one-click)</h2>
+      <p>
+        If your client supports registry-based install (e.g. VS Code, or via CLI tools like{" "}
+        <code>mcpm</code>), you can install directly from the MCP Registry:
+      </p>
+      <CodeBlock language="bash" code={`# Via mcpm CLI
+mcpm install io.github.thuupx/lunge
+
+# Or via mcp-registry CLI
+npx mcp-registry-cli install io.github.thuupx/lunge`} />
+      <p>
+        Or browse to the{" "}
+        <a href="https://github.com/modelcontextprotocol/registry" target="_blank" rel="noopener noreferrer">
+          GitHub MCP Registry
+        </a>{" "}
+        and click &ldquo;Install in VS Code&rdquo; for a one-click setup.
+      </p>
+
+      <h2>Option 2: npx (recommended for manual config)</h2>
       <p>
         The simplest setup. Your MCP client runs <code>npx -y lunge-mcp</code> which
         downloads the latest version on first use and caches it. No global install
@@ -32,7 +54,7 @@ export default function DocsInstallPage() {
 }`}
       />
 
-      <h2>Option 2: global install</h2>
+      <h2>Option 3: global install</h2>
       <p>Install once, reference the binary directly:</p>
       <CodeBlock language="bash" code={`npm install -g lunge-mcp`} />
       <p>Then in your MCP client config:</p>
