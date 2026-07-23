@@ -18,23 +18,19 @@ export default function DocsInstallPage() {
         extract variables, replay collections - no GUI, no copy-paste, no context bloat.
       </p>
 
-      <h2>Option 1: MCP Registry (one-click)</h2>
+      <h2>Option 1: MCP Registry</h2>
       <p>
-        If your client supports registry-based install (e.g. VS Code, or via CLI tools like{" "}
-        <code>mcpm</code>), you can install directly from the MCP Registry:
+        Lunge is listed on the{" "}
+        <a href="https://registry.modelcontextprotocol.io/?q=lunge" target="_blank" rel="noopener noreferrer">
+          MCP Registry
+        </a>{" "}
+        (<code>io.github.thuupx/lunge</code>). Install via CLI tools that read the registry:
       </p>
       <CodeBlock language="bash" code={`# Via mcpm CLI
 mcpm install io.github.thuupx/lunge
 
 # Or via mcp-registry CLI
 npx mcp-registry-cli install io.github.thuupx/lunge`} />
-      <p>
-        Or browse to the{" "}
-        <a href="https://github.com/modelcontextprotocol/registry" target="_blank" rel="noopener noreferrer">
-          GitHub MCP Registry
-        </a>{" "}
-        and click &ldquo;Install in VS Code&rdquo; for a one-click setup.
-      </p>
 
       <h2>Option 2: npx (recommended for manual config)</h2>
       <p>
