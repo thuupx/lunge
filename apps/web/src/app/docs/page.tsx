@@ -27,7 +27,7 @@ export default function DocsIndexPage() {
       <ul>
         <li>
           <Link href="/docs/install">Install</Link> - set up the Lunge MCP server in
-          Cursor, Windsurf, or Claude Desktop.
+          Cursor, Devin Desktop, or Claude Desktop.
         </li>
         <li>
           <Link href="/docs/quickstart">Quick start</Link> - fire your first request,

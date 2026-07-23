@@ -68,7 +68,7 @@ npx mcp-registry-cli install io.github.thuupx/lunge`} />
       <h2>Client config file locations</h2>
       <ul>
         <li><strong>Cursor</strong> - <code>~/.cursor/mcp.json</code> or project <code>.cursor/mcp.json</code></li>
-        <li><strong>Windsurf</strong> - <code>~/.codeium/windsurf/mcp_config.json</code></li>
+        <li><strong>Devin Desktop</strong> - <code>~/.codeium/mcp_config.json</code></li>
         <li><strong>Claude Desktop</strong> - <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
         <li><strong>Devin CLI</strong> - <code>~/.config/devin/config.json</code></li>
         <li><strong>VS Code</strong> - <code>~/.vscode/mcp.json</code> or project <code>.vscode/mcp.json</code></li>
