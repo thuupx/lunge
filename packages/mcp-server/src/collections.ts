@@ -36,13 +36,33 @@ function lookup(base: Record<string, unknown>, path: string): unknown {
   }, base);
 }
 
+/** Built-in template functions mirrored from the Rust core (template.rs). */
+function builtin(expr: string): string | undefined {
+  const e = expr.trim();
+  if (e === "uuid") return crypto.randomUUID();
+  if (e === "timestamp") return String(Math.floor(Date.now() / 1000));
+  if (e === "now") return String(Date.now());
+  if (e === "randomInt") return String(Math.floor(Math.random() * 1_000_001));
+  const m = e.match(/^randomInt\(([^)]*)\)$/);
+  if (m) {
+    const parts = m[1].split(",").map((p) => parseInt(p.trim(), 10)).filter((n) => !Number.isNaN(n));
+    const [min, max] = parts.length === 2 ? parts : parts.length === 1 ? [0, parts[0]] : [0, 1_000_000];
+    const [lo, hi] = min <= max ? [min, max] : [max, min];
+    return String(Math.floor(Math.random() * (hi - lo + 1)) + lo);
+  }
+  return undefined;
+}
+
 /** Resolve {{...}} inside collection var values against the current variable base. */
 function resolveColVars(vars: Record<string, unknown>, base: Record<string, unknown>): Record<string, unknown> {
   const out: Record<string, unknown> = {};
   for (const [k, v] of Object.entries(vars)) {
     if (typeof v === "string") {
       out[k] = v.replace(PLACEHOLDER, (_m, expr) => {
-        const val = lookup(base, String(expr).trim());
+        const e = String(expr).trim();
+        const b = builtin(e);
+        if (b !== undefined) return b;
+        const val = lookup(base, e);
         return val === undefined ? "" : typeof val === "string" ? val : JSON.stringify(val);
       });
     } else {
